@@ -26,6 +26,7 @@ public class RayCaster : MonoBehaviour
 			raycasting = true;
 		} else {
 			raycasting = false;
+			Messenger.Broadcast (GameEvent.HIDE_CURSOR);
 		}
 	}
 
