@@ -5,19 +5,18 @@ using System.Configuration;
 public class RayCaster : MonoBehaviour
 {
 	private Camera _camera;
+	[SerializeField]
+	private float activate_distance = 3.0f;
 	private bool raycasting;
 
 	void Awake ()
 	{
-		Messenger.AddListener (GameEvent.NEAR_INTERACTIVE, ActivateRay);
-		Messenger.AddListener (GameEvent.FAR_INTERACTIVE, ActivateRay);
+
 	}
 
 
 	void OnDestroy ()
 	{
-		Messenger.RemoveListener (GameEvent.NEAR_INTERACTIVE, ActivateRay);
-		Messenger.RemoveListener (GameEvent.FAR_INTERACTIVE, ActivateRay);
 	}
 
 	void ActivateRay ()
@@ -26,7 +25,7 @@ public class RayCaster : MonoBehaviour
 			raycasting = true;
 		} else {
 			raycasting = false;
-			Messenger.Broadcast (GameEvent.HIDE_CURSOR);
+			Messenger.Broadcast (GameEvent.FAR_INTERACTIVE);
 		}
 	}
 
@@ -34,7 +33,9 @@ public class RayCaster : MonoBehaviour
 	void Start ()
 	{
 		_camera = GetComponentInChildren<Camera> ();
-		raycasting = false;
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
+		raycasting = true;
 	}
 	
 	// Update is called once per frame
@@ -47,10 +48,10 @@ public class RayCaster : MonoBehaviour
 			if (Physics.Raycast (ray, out hit)) {
 				GameObject hitObject = hit.transform.gameObject;
 				ContainerItem target = hitObject.GetComponent<ContainerItem> ();
-				if (target != null) {
-					Messenger <int>.Broadcast (GameEvent.SHOW_HAND_CURSOR, 0);
+				if (target != null && Vector3.Distance (gameObject.transform.position, target.transform.position) <= activate_distance) {
+					Messenger <int>.Broadcast (GameEvent.NEAR_INTERACTIVE, 0);
 				} else {
-					Messenger.Broadcast (GameEvent.HIDE_CURSOR);
+					Messenger.Broadcast (GameEvent.FAR_INTERACTIVE);
 				}
 			}
 		}

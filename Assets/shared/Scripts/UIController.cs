@@ -21,14 +21,14 @@ public class UIController : MonoBehaviour
 
 	void Awake ()
 	{
-		Messenger<int>.AddListener (GameEvent.SHOW_HAND_CURSOR, ChangeCursor);
-		Messenger.AddListener (GameEvent.HIDE_CURSOR, HideCursor);
+		Messenger<int>.AddListener (GameEvent.NEAR_INTERACTIVE, ChangeCursor);
+		Messenger.AddListener (GameEvent.FAR_INTERACTIVE, HideCursor);
 	}
 
 	void OnDestroy ()
 	{
-		Messenger<int>.RemoveListener (GameEvent.SHOW_HAND_CURSOR, ChangeCursor);
-		Messenger.RemoveListener (GameEvent.HIDE_CURSOR, HideCursor);
+		Messenger<int>.RemoveListener (GameEvent.NEAR_INTERACTIVE, ChangeCursor);
+		Messenger.RemoveListener (GameEvent.FAR_INTERACTIVE, HideCursor);
 	}
 
 	void ChangeCursor (int sprite_index)
