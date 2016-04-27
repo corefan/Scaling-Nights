@@ -2,39 +2,27 @@
 using UnityEngine.EventSystems;
 using System.Collections;
 using UnityEngine.Events;
+using System;
+using System.CodeDom.Compiler;
 
 [RequireComponent (typeof(Collider))]
 public class ContainerItem : MonoBehaviour
 {
-	
+	public GameObject[] items;
+	//public RandomContainerFiller generator;
+	private RandomContainerFiller filler;
 	// Use this for initialization
 	void Start ()
 	{
-
+		filler = FindObjectOfType<RandomContainerFiller> ();
+		items = filler.RandomFill ();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-	
+		
 	}
-
-	void OnTriggerEnter (Collider other)
-	{
-		Player player = other.GetComponent<Player> ();
-		if (player != null) {
-			Messenger.Broadcast (GameEvent.NEAR_INTERACTIVE);
-		}
-	}
-
-	void OnTriggerExit (Collider other)
-	{
-		Player player = other.GetComponent<Player> ();
-		if (player != null) {
-			Messenger.Broadcast (GameEvent.FAR_INTERACTIVE);
-		}
-	}
-
 
 
 }
