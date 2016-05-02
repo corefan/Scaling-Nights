@@ -9,6 +9,8 @@ using System.CodeDom.Compiler;
 public class ContainerItem : MonoBehaviour
 {
 	public GameObject[] items;
+	public GameObject containerui;
+
 	//public RandomContainerFiller generator;
 	private RandomContainerFiller filler;
 	// Use this for initialization
