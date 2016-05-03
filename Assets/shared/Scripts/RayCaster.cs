@@ -5,6 +5,7 @@ using System.Configuration;
 public class RayCaster : MonoBehaviour
 {
 	private Camera _camera;
+	private GameObject hitObject;
 	[SerializeField]
 	private float activate_distance = 3.0f;
 	private bool raycasting;
@@ -46,15 +47,23 @@ public class RayCaster : MonoBehaviour
 			Ray ray = _camera.ScreenPointToRay (point);
 			RaycastHit hit;
 			if (Physics.Raycast (ray, out hit)) {
-				GameObject hitObject = hit.transform.gameObject;
-				ContainerItem target = hitObject.GetComponent<ContainerItem> ();
+				hitObject = hit.transform.gameObject;
+				Interactive target = hitObject.GetComponent<Interactive> ();
 				if (target != null && Vector3.Distance (gameObject.transform.position, target.transform.position) <= activate_distance) {
 					Messenger <int>.Broadcast (GameEvent.NEAR_INTERACTIVE, 0);
+					if (Input.GetButtonDown ("Action")) {
+						Container container = hitObject.GetComponent<Container> ();
+						if (container != null) {
+							container.Open ();
+							return;
+						}
+					}
 				} else {
 					Messenger.Broadcast (GameEvent.FAR_INTERACTIVE);
 				}
 			}
 		}
+
 
 	}
 }

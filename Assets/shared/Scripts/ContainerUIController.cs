@@ -9,10 +9,7 @@ public class ContainerUIController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		AddItem ();
-		AddItem ();
-		AddItem ();
-	
+		
 	}
 	
 	// Update is called once per frame
@@ -21,9 +18,18 @@ public class ContainerUIController : MonoBehaviour
 	
 	}
 
-	void AddItem ()
+	public void RemoveAll ()
+	{
+		for (int i = 0; i < gridlayout.transform.childCount; i++) {
+			Destroy (gridlayout.transform.GetChild (i).gameObject);
+		}
+	}
+
+	public void AddItem (Sprite img)
 	{
 		GameObject item = Instantiate (item_prefab);
 		item.transform.SetParent (gridlayout.transform);
+		Image sprite = item.transform.GetChild (0).GetComponent<Image> ();
+		sprite.sprite = img;
 	}
 }
