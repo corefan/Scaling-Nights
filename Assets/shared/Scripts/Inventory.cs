@@ -40,7 +40,7 @@ public class Inventory : MonoBehaviour
 		return false;
 	}
 
-	public void IncresePackSize (int size)
+	public void IncrementPackSize (int size)
 	{
 		pack_size = size;
 	}

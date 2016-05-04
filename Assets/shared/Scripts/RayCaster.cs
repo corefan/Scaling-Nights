@@ -42,7 +42,7 @@ public class RayCaster : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (raycasting) {
+		if (raycasting && !(GameEvent.isPause || GameEvent.isUiEnabled)) {
 			Vector3 point = new Vector3 (_camera.pixelWidth / 2, _camera.pixelHeight / 2, 0);
 			Ray ray = _camera.ScreenPointToRay (point);
 			RaycastHit hit;
