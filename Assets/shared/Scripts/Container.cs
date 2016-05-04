@@ -10,9 +10,11 @@ using UnityEngine.UI;
 public class Container : MonoBehaviour
 {
 	public GameObject[] items;
-	public GameObject containerController;
-
-	//public RandomContainerFiller generator;
+	[SerializeField]
+	private GameObject containerController;
+	[SerializeField]
+	private ContainerUIController uicontroller;
+	[SerializeField]
 	private RandomContainerFiller filler;
 
 	void Awake ()
@@ -29,6 +31,7 @@ public class Container : MonoBehaviour
 	{
 		filler = FindObjectOfType<RandomContainerFiller> ();
 		containerController = FindObjectOfType<ContainerUIController> ().gameObject;
+		uicontroller = containerController.GetComponent <ContainerUIController> ();
 		items = filler.RandomFill ();
 	}
 	
@@ -40,19 +43,18 @@ public class Container : MonoBehaviour
 
 	public void Open ()
 	{
-		ContainerUIController uicontroller = containerController.GetComponent <ContainerUIController> ();
+		
 		uicontroller.RemoveAll ();
 		for (int i = 0; i < items.Length; i++) {
-			Sprite sprite = items [i].GetComponent<Image> ().sprite;
-			uicontroller.AddItem (sprite);
+			uicontroller.AddItem (items [i]);
 		}
-		containerController.SetActive (true);
+		uicontroller.SetActive (true);
 
 	}
 
 	public void Close ()
 	{
-		containerController.SetActive (false);
+		uicontroller.SetActive (false);
 	}
 
 

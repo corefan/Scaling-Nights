@@ -16,7 +16,13 @@ public class UIController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-	
+		if (GameEvent.isPause || GameEvent.isUiEnabled) {
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
+		} else {
+			Cursor.lockState = CursorLockMode.Locked;
+			Cursor.visible = false;
+		}
 	}
 
 	void Awake ()

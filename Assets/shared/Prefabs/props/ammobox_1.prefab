@@ -13,6 +13,7 @@ GameObject:
   - 95: {fileID: 9500000}
   - 222: {fileID: 222000012983906018}
   - 114: {fileID: 114000011171870074}
+  - 114: {fileID: 114000012549623596}
   m_Layer: 0
   m_Name: ammobox_1
   m_TagString: Untagged
@@ -109,6 +110,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114000012549623596
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20862f7b995744a1aa7707d7a60838fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &222000012983906018
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -126,7 +138,7 @@ RectTransform:
   m_LocalScale: {x: 2.4741435, y: 2.4741435, z: 2.4741435}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
