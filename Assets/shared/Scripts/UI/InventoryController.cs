@@ -1,28 +1,29 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 using System;
+using System.Collections;
 
-public class ContainerUIController : MonoBehaviour
+public class InventoryController : MonoBehaviour
 {
+	[SerializeField]
+	private Inventory _inventory;
 	public GridLayoutGroup gridlayout;
 	public GameObject item_prefab;
-	private bool nearContainer;
 	// Use this for initialization
 	void Start ()
 	{
-		nearContainer = false;
 		transform.GetChild (0).gameObject.SetActive (false);
 	}
-	
+
 	// Update is called once per frame
 	void Update ()
 	{
-	
+
 	}
 
 	public void SetActive (Boolean value)
 	{	
+		GameEvent.isUiEnabled = value;
 		transform.GetChild (0).gameObject.SetActive (value);
 	}
 
@@ -42,5 +43,27 @@ public class ContainerUIController : MonoBehaviour
 		itemlabel.item = item;
 		itemlabel.index = prefab.transform.parent.childCount - 1;
 		prefabSprite.sprite = item.GetComponent<Image> ().sprite;
+	}
+
+	void Awake ()
+	{
+		Messenger.AddListener (GameEvent.SHOW_UI, Open);
+		Messenger.AddListener (GameEvent.HIDE_UI, Close);
+	}
+
+	void OnDestroy ()
+	{
+		Messenger.RemoveListener (GameEvent.SHOW_UI, Open);
+		Messenger.RemoveListener (GameEvent.HIDE_UI, Close);
+	}
+
+	public void Open ()
+	{
+		
+	}
+
+	public void Close ()
+	{
+		
 	}
 }
