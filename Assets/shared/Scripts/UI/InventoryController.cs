@@ -53,8 +53,10 @@ public class InventoryController : MonoBehaviour
 
 	public void Show ()
 	{
-		foreach (GameObject item in _inventory.GetItems ()) {
-			AddItem (item);
+		if (_inventory.GetItems ().Length == 0) {
+			foreach (GameObject item in _inventory.GetItems ()) {
+				AddItem (item);
+			}
 		}
 		transform.GetChild (0).gameObject.SetActive (true);
 	}

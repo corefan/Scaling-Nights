@@ -32,11 +32,12 @@ public class RayCaster : MonoBehaviour
 				if (distance <= activate_distance) {
 					if (hitObject.tag == "Lootable")
 						Messenger <int>.Broadcast (GameEvent.SHOW_DIALOG, 0);
+
 					if (Input.GetButtonDown ("Action")) {
 						Container container = hitObject.GetComponent<Container> ();
 						if (container != null) {
 							container.Open ();
-
+							Messenger.Broadcast (GameEvent.SHOW_CURSOR);
 							return;
 						}
 					}

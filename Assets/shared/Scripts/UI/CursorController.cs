@@ -11,16 +11,16 @@ public class CursorController : MonoBehaviour
 
 	void Awake ()
 	{
-		Messenger<int>.AddListener (GameEvent.SHOW_MENU, Show);
-		Messenger.AddListener (GameEvent.HIDE_MENU, Hide);
+		Messenger<int>.AddListener (GameEvent.SHOW_CURSOR, Show);
+		Messenger.AddListener (GameEvent.HIDE_CURSOR, Hide);
 		Messenger.AddListener (GameEvent.SHOW_INVENTORY, Show);
 		Messenger.AddListener (GameEvent.HIDE_INVENTORY, Hide);
 	}
 
 	void OnDestroy ()
 	{
-		Messenger<int>.RemoveListener (GameEvent.SHOW_MENU, Show);
-		Messenger.RemoveListener (GameEvent.HIDE_MENU, Hide);
+		Messenger<int>.RemoveListener (GameEvent.SHOW_CURSOR, Show);
+		Messenger.RemoveListener (GameEvent.HIDE_CURSOR, Hide);
 		Messenger.RemoveListener (GameEvent.SHOW_INVENTORY, Show);
 		Messenger.RemoveListener (GameEvent.HIDE_INVENTORY, Hide);
 	}

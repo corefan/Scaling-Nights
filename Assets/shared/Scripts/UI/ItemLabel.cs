@@ -6,17 +6,11 @@ public class ItemLabel : MonoBehaviour
 {
 	public GameObject item;
 	public int index;
-	[SerializeField] private GameObject _source;
-	[SerializeField] private GameObject _destination;
+	[SerializeField] private Inventory _inventory;
 	// Use this for initialization
 	void Start ()
 	{
-		_source = transform.parent.parent.parent.gameObject;
-		if (_source.name.Equals ("InventoryPopUp")) {
-			_destination = GameObject.Find ("ContainerPopUp");
-		} else {
-			_destination = GameObject.Find ("Player");
-		}
+		_inventory = GameObject.Find ("Player").GetComponent <Inventory> ();
 	}
 	
 	// Update is called once per frame
@@ -27,7 +21,9 @@ public class ItemLabel : MonoBehaviour
 
 	public void MoveTo ()
 	{
-		
+		if (_inventory.InsertItem (item)) {
+			Destroy (gameObject.transform.parent.GetChild (index).gameObject);
+		}
 	}
 
 }

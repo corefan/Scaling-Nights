@@ -23,12 +23,12 @@ public class ContainerUIController : MonoBehaviour
 
 	void Awake ()
 	{
-		Messenger.AddListener (GameEvent.HIDE_DIALOG, Close);
+		Messenger.AddListener (GameEvent.HIDE_DIALOG, Hide);
 	}
 
 	void OnDestroy ()
 	{
-		Messenger.RemoveListener (GameEvent.HIDE_DIALOG, Close);
+		Messenger.RemoveListener (GameEvent.HIDE_DIALOG, Hide);
 	}
 
 	public void SetActive (Boolean value)
@@ -56,15 +56,11 @@ public class ContainerUIController : MonoBehaviour
 
 	public void Show ()
 	{
-		foreach (GameObject item in _inventory.GetItems ()) {
-			AddItem (item);
-		}
 		transform.GetChild (0).gameObject.SetActive (true);
 	}
 
 	public void Hide ()
 	{
-		RemoveAll ();
 		transform.GetChild (0).gameObject.SetActive (false);
 	}
 }

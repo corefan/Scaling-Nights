@@ -4,8 +4,8 @@ using System.Collections;
 public static class GameEvent
 {
 
-	public const string SHOW_MENU = "SHOW_MENU";
-	public const string HIDE_MENU = "HIDE_MENU";
+	public const string SHOW_CURSOR = "SHOW_CURSOR";
+	public const string HIDE_CURSOR = "HIDE_CURSOR";
 
 	public const string SHOW_INVENTORY = "SHOW_INVENTORY";
 	public const string HIDE_INVENTORY = "HIDE_INVENTORY";
@@ -27,13 +27,13 @@ public static class GameEvent
 			isUiEnabled = false;
 			Cursor.lockState = CursorLockMode.Locked;
 			Time.timeScale = 1;
-			Messenger.Broadcast (GameEvent.HIDE_MENU);
+			Messenger.Broadcast (GameEvent.HIDE_CURSOR);
 
 		} else {
 			isPause = true;
 			isUiEnabled = true;
 			Cursor.lockState = CursorLockMode.None;
-			Messenger<int>.Broadcast (GameEvent.SHOW_MENU, 0);
+			Messenger<int>.Broadcast (GameEvent.SHOW_CURSOR, 0);
 		}
 	}
 
