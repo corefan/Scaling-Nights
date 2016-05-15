@@ -2158,7 +2158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   strobo: {fileID: 0}
   isOn: 1
-  stroboRate: 10
+  stroboRate: 1
 --- !u!1 &1696929863
 GameObject:
   m_ObjectHideFlags: 0

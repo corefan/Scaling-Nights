@@ -17,8 +17,9 @@ public class StroboLight : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		float offset = Random.value;
 		if (strobo != null && Time.time > nextStrobo) {
-			nextStrobo = Time.time + stroboRate;
+			nextStrobo = Time.time + stroboRate * offset;
 			strobo.enabled = !isOn;
 		} else {
 			strobo.enabled = isOn;
