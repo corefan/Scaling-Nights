@@ -9,27 +9,7 @@ public class RayCaster : MonoBehaviour
 	[SerializeField]
 	private float activate_distance = 3.0f;
 	private bool raycasting;
-
-	void Awake ()
-	{
-
-	}
-
-
-	void OnDestroy ()
-	{
-	}
-
-	void ActivateRay ()
-	{
-		if (raycasting == false) {
-			raycasting = true;
-		} else {
-			raycasting = false;
-			Messenger.Broadcast (GameEvent.FAR_INTERACTIVE);
-		}
-	}
-
+		
 	// Use this for initialization
 	void Start ()
 	{
@@ -48,18 +28,20 @@ public class RayCaster : MonoBehaviour
 			RaycastHit hit;
 			if (Physics.Raycast (ray, out hit)) {
 				hitObject = hit.transform.gameObject;
-				Interactive target = hitObject.GetComponent<Interactive> ();
-				if (target != null && Vector3.Distance (gameObject.transform.position, target.transform.position) <= activate_distance) {
-					Messenger <int>.Broadcast (GameEvent.NEAR_INTERACTIVE, 0);
+				float distance = Vector3.Distance (gameObject.transform.position, hitObject.transform.position);
+				if (distance <= activate_distance) {
+					if (hitObject.tag == "Lootable")
+						Messenger <int>.Broadcast (GameEvent.SHOW_DIALOG, 0);
 					if (Input.GetButtonDown ("Action")) {
 						Container container = hitObject.GetComponent<Container> ();
 						if (container != null) {
 							container.Open ();
+
 							return;
 						}
 					}
 				} else {
-					Messenger.Broadcast (GameEvent.FAR_INTERACTIVE);
+					Messenger.Broadcast (GameEvent.HIDE_DIALOG);
 				}
 			}
 		}

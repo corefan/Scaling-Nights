@@ -6,41 +6,31 @@ using System.Runtime.InteropServices;
 
 public class UIController : MonoBehaviour
 {
+	private bool _inventory;
 	// Use this for initialization
 	void Start ()
 	{
+		_inventory = false;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if (Input.GetKeyDown (KeyCode.Escape) && !GameEvent.isPause) {
-			GameEvent.Pause ();
-			Messenger.Broadcast (GameEvent.SHOW_UI);
-		} else if (Input.GetKeyDown (KeyCode.Escape) && GameEvent.isPause) {
-			GameEvent.UnPause ();
-			Messenger.Broadcast (GameEvent.HIDE_UI);
+		if (!GameEvent.gameOver) {
+			if (Input.GetKeyDown (KeyCode.Escape)) {
+				GameEvent.Pause ();
+			} else if (Input.GetKeyDown (KeyCode.I)) {
+				if (!_inventory) {
+					_inventory = true;
+					GameEvent.Pause ();
+					Messenger.Broadcast (GameEvent.SHOW_INVENTORY);
+				} else {
+					_inventory = false;
+					GameEvent.Pause ();
+					Messenger.Broadcast (GameEvent.HIDE_INVENTORY);
+				}
+			}
 		}
-	}
-
-	void Awake ()
-	{
-		Messenger<int>.AddListener (GameEvent.NEAR_INTERACTIVE, ChangeCursor);
-		Messenger.AddListener (GameEvent.FAR_INTERACTIVE, HideCursor);
-	}
-
-	void OnDestroy ()
-	{
-		Messenger<int>.RemoveListener (GameEvent.NEAR_INTERACTIVE, ChangeCursor);
-		Messenger.RemoveListener (GameEvent.FAR_INTERACTIVE, HideCursor);
-	}
-
-	void ChangeCursor (int index)
-	{
-	}
-
-	void HideCursor ()
-	{
 	}
 
 }

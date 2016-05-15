@@ -11,15 +11,15 @@ public class DialogController : MonoBehaviour
 
 	void Awake ()
 	{
-		Messenger<int>.AddListener (GameEvent.NEAR_INTERACTIVE, Show);
-		Messenger.AddListener (GameEvent.FAR_INTERACTIVE, Hide);
+		Messenger<int>.AddListener (GameEvent.ADD_ITEM, Show);
+		Messenger.AddListener (GameEvent.REMOVE_ITEM, Hide);
 	}
 
 
 	void OnDestroy ()
 	{
-		Messenger<int>.RemoveListener (GameEvent.NEAR_INTERACTIVE, Show);
-		Messenger.RemoveListener (GameEvent.FAR_INTERACTIVE, Hide);
+		Messenger<int>.RemoveListener (GameEvent.ADD_ITEM, Show);
+		Messenger.RemoveListener (GameEvent.REMOVE_ITEM, Hide);
 	}
 
 	// Use this for initialization

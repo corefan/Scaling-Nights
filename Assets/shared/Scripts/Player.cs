@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Security.Policy;
 
 public class Player : MonoBehaviour
 {
@@ -19,12 +20,23 @@ public class Player : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (!GameEvent.GameOver) {
-			hunger -= 1 * Time.deltaTime * hunger_scale;
-			thirst -= 1 * Time.deltaTime * thirst_scale;
-			heat -= 1 * Time.deltaTime * heat_scale;
-			if (health <= 0) {
-				GameEvent.GameOver = true;
+		if (!GameEvent.gameOver) {
+			if (health > 0) {
+				hunger -= 1 * Time.deltaTime * hunger_scale;
+				thirst -= 1 * Time.deltaTime * thirst_scale;
+				heat -= 1 * Time.deltaTime * heat_scale;
+				if (hunger < 0) {
+					health -= hunger_scale;
+				}
+				if (thirst < 0) {
+					health -= thirst_scale;
+				}
+				if (heat < 0) {
+					health -= heat_scale;
+				}
+
+			} else {
+				GameEvent.GameOver ();
 			}
 		}
 	}

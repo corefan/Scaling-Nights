@@ -5,13 +5,13 @@ using System;
 
 public class ContainerUIController : MonoBehaviour
 {
+	private Container _container;
 	public GridLayoutGroup gridlayout;
 	public GameObject item_prefab;
-	private bool nearContainer;
+
 	// Use this for initialization
 	void Start ()
 	{
-		nearContainer = false;
 		transform.GetChild (0).gameObject.SetActive (false);
 	}
 	
@@ -19,6 +19,16 @@ public class ContainerUIController : MonoBehaviour
 	void Update ()
 	{
 	
+	}
+
+	void Awake ()
+	{
+		Messenger.AddListener (GameEvent.HIDE_DIALOG, Close);
+	}
+
+	void OnDestroy ()
+	{
+		Messenger.RemoveListener (GameEvent.HIDE_DIALOG, Close);
 	}
 
 	public void SetActive (Boolean value)
@@ -42,5 +52,19 @@ public class ContainerUIController : MonoBehaviour
 		itemlabel.item = item;
 		itemlabel.index = prefab.transform.parent.childCount - 1;
 		prefabSprite.sprite = item.GetComponent<Image> ().sprite;
+	}
+
+	public void Show ()
+	{
+		foreach (GameObject item in _inventory.GetItems ()) {
+			AddItem (item);
+		}
+		transform.GetChild (0).gameObject.SetActive (true);
+	}
+
+	public void Hide ()
+	{
+		RemoveAll ();
+		transform.GetChild (0).gameObject.SetActive (false);
 	}
 }

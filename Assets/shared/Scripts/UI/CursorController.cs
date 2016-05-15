@@ -11,18 +11,18 @@ public class CursorController : MonoBehaviour
 
 	void Awake ()
 	{
-		Messenger<int>.AddListener (GameEvent.NEAR_INTERACTIVE, Show);
-		Messenger.AddListener (GameEvent.FAR_INTERACTIVE, Hide);
-		Messenger.AddListener (GameEvent.SHOW_UI, Show);
-		Messenger.AddListener (GameEvent.HIDE_UI, Hide);
+		Messenger<int>.AddListener (GameEvent.SHOW_MENU, Show);
+		Messenger.AddListener (GameEvent.HIDE_MENU, Hide);
+		Messenger.AddListener (GameEvent.SHOW_INVENTORY, Show);
+		Messenger.AddListener (GameEvent.HIDE_INVENTORY, Hide);
 	}
 
 	void OnDestroy ()
 	{
-		Messenger<int>.RemoveListener (GameEvent.NEAR_INTERACTIVE, Show);
-		Messenger.RemoveListener (GameEvent.FAR_INTERACTIVE, Hide);
-		Messenger.RemoveListener (GameEvent.SHOW_UI, Show);
-		Messenger.RemoveListener (GameEvent.HIDE_UI, Hide);
+		Messenger<int>.RemoveListener (GameEvent.SHOW_MENU, Show);
+		Messenger.RemoveListener (GameEvent.HIDE_MENU, Hide);
+		Messenger.RemoveListener (GameEvent.SHOW_INVENTORY, Show);
+		Messenger.RemoveListener (GameEvent.HIDE_INVENTORY, Hide);
 	}
 	// Use this for initialization
 	void Start ()
@@ -43,11 +43,10 @@ public class CursorController : MonoBehaviour
 
 	public void Show ()
 	{
-		
+
 		Cursor.lockState = CursorLockMode.None;
 		_cursor.sprite = _icons [0];
 		_cursor.enabled = true;
-
 	}
 
 	public void Show (int index)
@@ -61,6 +60,7 @@ public class CursorController : MonoBehaviour
 	public void Hide ()
 	{
 		Cursor.lockState = CursorLockMode.None;
+		gameObject.transform.position = new Vector3 (0, 0, 0);
 		_cursor.enabled = false;
 	}
 }

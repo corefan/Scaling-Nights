@@ -507,7 +507,7 @@ GameObject:
   - 4: {fileID: 106098597}
   - 218: {fileID: 106098596}
   - 154: {fileID: 106098595}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2635,7 +2635,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 2024356682}
   m_Layer: 0
-  m_Name: GameEvent
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

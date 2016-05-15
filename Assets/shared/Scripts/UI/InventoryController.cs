@@ -21,12 +21,6 @@ public class InventoryController : MonoBehaviour
 
 	}
 
-	public void SetActive (Boolean value)
-	{	
-		GameEvent.isUiEnabled = value;
-		transform.GetChild (0).gameObject.SetActive (value);
-	}
-
 	public void RemoveAll ()
 	{
 		for (int i = 0; i < gridlayout.transform.childCount; i++) {
@@ -47,23 +41,27 @@ public class InventoryController : MonoBehaviour
 
 	void Awake ()
 	{
-		Messenger.AddListener (GameEvent.SHOW_UI, Open);
-		Messenger.AddListener (GameEvent.HIDE_UI, Close);
+		Messenger.AddListener (GameEvent.SHOW_INVENTORY, Show);
+		Messenger.AddListener (GameEvent.HIDE_INVENTORY, Hide);
 	}
 
 	void OnDestroy ()
 	{
-		Messenger.RemoveListener (GameEvent.SHOW_UI, Open);
-		Messenger.RemoveListener (GameEvent.HIDE_UI, Close);
+		Messenger.RemoveListener (GameEvent.SHOW_INVENTORY, Show);
+		Messenger.RemoveListener (GameEvent.HIDE_INVENTORY, Hide);
 	}
 
-	public void Open ()
+	public void Show ()
 	{
-		
+		foreach (GameObject item in _inventory.GetItems ()) {
+			AddItem (item);
+		}
+		transform.GetChild (0).gameObject.SetActive (true);
 	}
 
-	public void Close ()
+	public void Hide ()
 	{
-		
+		RemoveAll ();
+		transform.GetChild (0).gameObject.SetActive (false);
 	}
 }
