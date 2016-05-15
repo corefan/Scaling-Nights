@@ -19,9 +19,8 @@ public class ItemLabel : MonoBehaviour
 	
 	}
 
-	public void MoveToInventory ()
+	public void MoveTo ()
 	{
-		
 		if (_inventory.InsertItem (item)) {
 			Destroy (gameObject.transform.parent.GetChild (index).gameObject);
 		}

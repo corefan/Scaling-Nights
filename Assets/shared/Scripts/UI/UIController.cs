@@ -2,50 +2,35 @@
 using System.Collections;
 using UnityEngine.UI;
 using System;
+using System.Runtime.InteropServices;
 
 public class UIController : MonoBehaviour
 {
-	public Image cursor;
-	public Sprite[] cursor_sprites;
+	private bool _inventory;
 	// Use this for initialization
 	void Start ()
 	{
-		cursor.enabled = false;
+		_inventory = false;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if (GameEvent.isPause || GameEvent.isUiEnabled) {
-			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
-		} else {
-			Cursor.lockState = CursorLockMode.Locked;
-			Cursor.visible = false;
+		if (!GameEvent.gameOver) {
+			if (Input.GetKeyDown (KeyCode.Escape)) {
+				GameEvent.Pause ();
+			} else if (Input.GetKeyDown (KeyCode.I)) {
+				if (!_inventory) {
+					_inventory = true;
+					GameEvent.Pause ();
+					Messenger.Broadcast (GameEvent.SHOW_INVENTORY);
+				} else {
+					_inventory = false;
+					GameEvent.Pause ();
+					Messenger.Broadcast (GameEvent.HIDE_INVENTORY);
+				}
+			}
 		}
-	}
-
-	void Awake ()
-	{
-		Messenger<int>.AddListener (GameEvent.NEAR_INTERACTIVE, ChangeCursor);
-		Messenger.AddListener (GameEvent.FAR_INTERACTIVE, HideCursor);
-	}
-
-	void OnDestroy ()
-	{
-		Messenger<int>.RemoveListener (GameEvent.NEAR_INTERACTIVE, ChangeCursor);
-		Messenger.RemoveListener (GameEvent.FAR_INTERACTIVE, HideCursor);
-	}
-
-	void ChangeCursor (int sprite_index)
-	{
-		cursor.enabled = true;
-		cursor.sprite = cursor_sprites [sprite_index];
-	}
-
-	void HideCursor ()
-	{
-		cursor.enabled = false;
 	}
 
 }

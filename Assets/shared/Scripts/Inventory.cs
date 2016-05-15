@@ -4,12 +4,13 @@ using System.Collections;
 [RequireComponent (typeof(Player))]
 public class Inventory : MonoBehaviour
 {
-	public GameObject[] items;
+	public GameObject[] equip;
+	public GameObject[] pack;
 	public int pack_size = 3;
 	// Use this for initialization
 	void Start ()
 	{
-		items = new GameObject[pack_size];
+		pack = new GameObject[pack_size];
 	}
 	
 	// Update is called once per frame
@@ -21,19 +22,24 @@ public class Inventory : MonoBehaviour
 	public bool InsertItem (GameObject item)
 	{
 		for (int i = 0; i < pack_size; i++) {
-			if (items [i] == null) {
-				items [i] = item;
+			if (pack [i] == null) {
+				pack [i] = item;
 				return true;
 			}
 		}
 		return false;
 	}
 
+	public GameObject[] GetItems ()
+	{
+		return pack;
+	}
+
 	public bool RemoveItem (GameObject item)
 	{
 		for (int i = 0; i < pack_size; i++) {
-			if (item.Equals (items [i])) {
-				items [i] = null;
+			if (item.Equals (pack [i])) {
+				pack [i] = null;
 				return true;
 			}
 		}

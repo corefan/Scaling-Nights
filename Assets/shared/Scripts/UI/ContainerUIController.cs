@@ -5,12 +5,13 @@ using System;
 
 public class ContainerUIController : MonoBehaviour
 {
+	private Container _container;
 	public GridLayoutGroup gridlayout;
 	public GameObject item_prefab;
+
 	// Use this for initialization
 	void Start ()
 	{
-		GameEvent.isUiEnabled = false;
 		transform.GetChild (0).gameObject.SetActive (false);
 	}
 	
@@ -20,9 +21,18 @@ public class ContainerUIController : MonoBehaviour
 	
 	}
 
+	void Awake ()
+	{
+		Messenger.AddListener (GameEvent.HIDE_DIALOG, Hide);
+	}
+
+	void OnDestroy ()
+	{
+		Messenger.RemoveListener (GameEvent.HIDE_DIALOG, Hide);
+	}
+
 	public void SetActive (Boolean value)
 	{	
-		GameEvent.isUiEnabled = value;
 		transform.GetChild (0).gameObject.SetActive (value);
 	}
 
@@ -42,5 +52,15 @@ public class ContainerUIController : MonoBehaviour
 		itemlabel.item = item;
 		itemlabel.index = prefab.transform.parent.childCount - 1;
 		prefabSprite.sprite = item.GetComponent<Image> ().sprite;
+	}
+
+	public void Show ()
+	{
+		transform.GetChild (0).gameObject.SetActive (true);
+	}
+
+	public void Hide ()
+	{
+		transform.GetChild (0).gameObject.SetActive (false);
 	}
 }

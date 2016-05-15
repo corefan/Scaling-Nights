@@ -17,15 +17,6 @@ public class Container : MonoBehaviour
 	[SerializeField]
 	private RandomContainerFiller filler;
 
-	void Awake ()
-	{
-		Messenger.AddListener (GameEvent.FAR_INTERACTIVE, Close);
-	}
-
-	void OnDestroy ()
-	{
-		Messenger.RemoveListener (GameEvent.FAR_INTERACTIVE, Close);
-	}
 	// Use this for initialization
 	void Start ()
 	{
