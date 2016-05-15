@@ -8,7 +8,7 @@ public class RayCaster : MonoBehaviour
 	private GameObject hitObject;
 	[SerializeField]
 	private float activate_distance = 3.0f;
-	private bool raycasting;
+	public RaycastHit hit;
 		
 	// Use this for initialization
 	void Start ()
@@ -16,17 +16,16 @@ public class RayCaster : MonoBehaviour
 		_camera = GetComponentInChildren<Camera> ();
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
-		raycasting = true;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if (raycasting && !(GameEvent.isPause || GameEvent.isUiEnabled)) {
+		if (!(GameEvent.isPause || GameEvent.isUiEnabled)) {
 			Vector3 point = new Vector3 (_camera.pixelWidth / 2, _camera.pixelHeight / 2, 0);
 			Ray ray = _camera.ScreenPointToRay (point);
-			RaycastHit hit;
-			if (Physics.Raycast (ray, out hit)) {
+
+			if (Physics.SphereCast (ray, 1.5f, out hit)) {
 				hitObject = hit.transform.gameObject;
 				float distance = Vector3.Distance (gameObject.transform.position, hitObject.transform.position);
 				if (distance <= activate_distance) {

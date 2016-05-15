@@ -1048,6 +1048,7 @@ GameObject:
   - 92: {fileID: 848749015}
   - 81: {fileID: 848749014}
   - 114: {fileID: 848749018}
+  - 114: {fileID: 848749019}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: Untagged
@@ -1139,6 +1140,22 @@ MonoBehaviour:
   sensitivityVer: 9
   minimumVert: -60
   maximumVert: 60
+--- !u!114 &848749019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 848749012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 694c9bcdc8f70d64484453e595231ab4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugMode: 1
+  shakeAmount: 6
+  shakeDuration: 1
+  smooth: 1
+  smoothAmount: 10
 --- !u!1 &921624749
 GameObject:
   m_ObjectHideFlags: 0
