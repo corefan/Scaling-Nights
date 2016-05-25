@@ -13,7 +13,7 @@ public class PlayerCharacter : MonoBehaviour {
 	void Start () {
 		gameOver.enabled = false;
 		//FIXME
-		_health = 5;
+		_health = 10;
 		constHealth = _health;
 	}
 
@@ -32,5 +32,9 @@ public class PlayerCharacter : MonoBehaviour {
 		}
 
 	}
+
+	public int getHealth() {return _health;}
+
+
 
 }

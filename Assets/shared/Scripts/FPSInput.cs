@@ -8,13 +8,12 @@ public class FPSInput : MonoBehaviour
 	public float accel;
 	public float walk;
 	private CharacterController _charController;
-	private Animator _animator;
 	private float gravity = -9.8f;
+
 	// Use this for initialization
 	void Start ()
 	{
-		_charController = GetComponent<CharacterController> ();	
-		_animator = GetComponent<Animator> ();
+		_charController = GetComponent<CharacterController> ();
 		speed = 8.0f;
 		accel = 2.5f;
 		walk = 2.0f;
@@ -39,7 +38,6 @@ public class FPSInput : MonoBehaviour
 
 		movement = Vector3.ClampMagnitude (movement, speed);
 		movement.y = gravity;
-		_animator.SetFloat ("Speed", movement.magnitude);
 		movement *= Time.deltaTime;
 		movement = transform.TransformDirection (movement);
 		_charController.Move (movement);
