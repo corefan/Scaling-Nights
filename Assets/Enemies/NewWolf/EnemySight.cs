@@ -15,11 +15,13 @@ public class EnemySight : MonoBehaviour
 	// Reference to the NavMeshAgent component.
 	private SphereCollider col;
 	// Reference to the sphere collider trigger component.
-	private Animator anim;
-	// Reference to the Animator.
+
+	public float deadZone = 5f;
+
 	private LastPlayerSight lastPlayerSighting;
 	// Reference to last global sighting of the player.
-	private GameObject player;
+	private Animator anim;
+	private Transform player;
 	// Reference to the player.
 	//	private Animator playerAnim;                    // Reference to the player's animator component.
 	private Player playerHealth;
@@ -31,12 +33,13 @@ public class EnemySight : MonoBehaviour
 
 	void Awake ()
 	{
+	
 		// Setting up the references.
+		anim = GetComponent <Animator>();
 		nav = GetComponent<NavMeshAgent> ();
 		col = GetComponent<SphereCollider> ();
-		anim = GetComponent<Animator> ();
 		lastPlayerSighting = GameObject.FindGameObjectWithTag (Tags.gameController).GetComponent<LastPlayerSight> ();
-		player = GameObject.FindGameObjectWithTag (Tags.player);
+		player = GameObject.FindGameObjectWithTag (Tags.player).transform;
 //		playerAnim = player.GetComponent<Animator>();
 		playerHealth = player.GetComponent<Player> ();
 //		hash = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<HashIDs>();
@@ -49,11 +52,13 @@ public class EnemySight : MonoBehaviour
 
 	void Update ()
 	{
+//		Debug.Log ("Update");
 		// If the last global sighting of the player has changed...
-		if (lastPlayerSighting.position != previousSighting) {
+		if (lastPlayerSighting.position != previousSighting)
 			// ... then update the personal sighting to be the same as the global sighting.
 			personalLastSighting = lastPlayerSighting.position;
-		}
+
+
 		// Set the previous sighting to the be the sighting from this frame.
 		previousSighting = lastPlayerSighting.position;
 
@@ -61,8 +66,6 @@ public class EnemySight : MonoBehaviour
 		if (playerHealth.getHealth () > 0) {
 			anim.SetBool ("Attacking", playerInSight);
 		} else {
-			Debug.Log ("ATTACKING FALSE " + controlVar);
-			controlVar++;
 			anim.SetBool ("Attacking", false);
 		}
 	}
@@ -72,6 +75,7 @@ public class EnemySight : MonoBehaviour
 	{
 		// If the player has entered the trigger sphere...
 		if (other.gameObject == player) {
+			Debug.Log ("IN zone");
 			// By default the player is not in sight.
 			playerInSight = false;
 
@@ -80,9 +84,9 @@ public class EnemySight : MonoBehaviour
 			float angle = Vector3.Angle (direction, transform.forward);
 
 			// If the angle between forward and where the player is, is less than half the angle of view...
-			if (angle < fieldOfViewAngle * 0.5f) {
+			if (angle < fieldOfViewAngle * 0.5f) { 
 				RaycastHit hit;
-
+			
 				// ... and if a raycast towards the player hits something...
 				if (Physics.Raycast (transform.position + transform.up, direction.normalized, out hit, col.radius)) {
 					// ... and if the raycast hits the player...
@@ -90,12 +94,11 @@ public class EnemySight : MonoBehaviour
 						// ... the player is in sight.
 						playerInSight = true;
 
-						Debug.Log ("IN SIGHT" + controlVar);
-						controlVar++;
-
 						// Set the last global sighting is the players current position.
 						lastPlayerSighting.position = player.transform.position;
 					}
+
+					NavSetup ();
 				}
 			}
 				
@@ -104,6 +107,9 @@ public class EnemySight : MonoBehaviour
 //					 ... set the last personal sighting of the player to the player's current position.
 					personalLastSighting = player.transform.position;
 		}
+
+//		Debug.Log ("IN SIGHT?" + playerInSight + controlVar);
+//						controlVar++;
 	}
 
 
@@ -111,11 +117,7 @@ public class EnemySight : MonoBehaviour
 	{
 		// If the player leaves the trigger zone...
 		if (other.gameObject == player)
-			// ... the player is not in sight.
-
-			Debug.Log ("NOT IN SIGHT" + controlVar);
-		controlVar++;
-		playerInSight = false;
+			playerInSight = false;
 	}
 
 
@@ -149,5 +151,84 @@ public class EnemySight : MonoBehaviour
 		}
 
 		return pathLength;
+	}
+
+
+	void NavSetup ()
+	{
+		// Create the parameters to pass to the helper function.
+		float speed;
+		float angle;
+
+//		// If the player is in sight...
+//		if (playerInSight) {
+//			// ... the enemy should stop...
+//			speed = 0f;
+//
+//			// ... and the angle to turn through is towards the player.
+//			angle = FindAngle (transform.forward, player.position - transform.position, transform.up);
+//		} else {
+//			// Otherwise the speed is a projection of desired velocity on to the forward vector...
+//			speed = Vector3.Project (nav.desiredVelocity, transform.forward).magnitude;
+//
+//			// ... and the angle is the angle between forward and the desired velocity.
+//			angle = FindAngle (transform.forward, nav.desiredVelocity, transform.up);
+//		animSetup.Setup (speed, angle);
+//
+//
+//		}
+
+		if (playerInSight) {
+			// ... the enemy should stop...
+			speed = 0f;
+
+			// ... and the angle to turn through is towards the player.
+			angle = FindAngle (transform.forward, player.position - transform.position, transform.up);
+		} else {
+			// Otherwise the speed is a projection of desired velocity on to the forward vector...
+			speed = Vector3.Project (nav.desiredVelocity, transform.forward).magnitude;
+
+			// ... and the angle is the angle between forward and the desired velocity.
+			angle = FindAngle (transform.forward, nav.desiredVelocity, transform.up);
+
+			// If the angle is within the deadZone...
+			if (Mathf.Abs (angle) < deadZone) {
+				// ... set the direction to be along the desired direction and set the angle to be zero.
+				transform.LookAt (transform.position + nav.desiredVelocity);
+				angle = 0f;
+
+			}
+		}
+
+
+		// Call the Setup function of the helper class with the given parameters.
+//				animSetup.Setup (speed, angle);
+		Debug.Log (speed);
+
+
+		Vector3 eulerAngles = new Vector3 (0, angle, 0);
+		transform.Rotate (eulerAngles);}
+
+
+	float FindAngle (Vector3 fromVector, Vector3 toVector, Vector3 upVector)
+	{
+		// If the vector the angle is being calculated to is 0...
+		if (toVector == Vector3.zero)
+			// ... the angle between them is 0.
+			return 0f;
+
+		// Create a float to store the angle between the facing of the enemy and the direction it's travelling.
+		float angle = Vector3.Angle (fromVector, toVector);
+
+		// Find the cross product of the two vectors (this will point up if the velocity is to the right of forward).
+		Vector3 normal = Vector3.Cross (fromVector, toVector);
+
+		// The dot product of the normal with the upVector will be positive if they point in the same direction.
+		angle *= Mathf.Sign (Vector3.Dot (normal, upVector));
+
+		// We need to convert the angle we've found from degrees to radians.
+		angle *= Mathf.Deg2Rad;
+
+		return angle;
 	}
 }

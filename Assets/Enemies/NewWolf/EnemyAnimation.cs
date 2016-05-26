@@ -15,8 +15,6 @@ public class EnemyAnimation : MonoBehaviour
 	private NavMeshAgent nav;
 	// Reference to the nav mesh agent.
 	private Animator anim;
-	//Reference to the Animator setup;
-	private AnimatorSetup animSetup;
 
 	void Awake ()
 	{
@@ -25,17 +23,6 @@ public class EnemyAnimation : MonoBehaviour
 		enemySight = GetComponent<EnemySight> ();
 		nav = GetComponent<NavMeshAgent> ();
 		anim = GetComponent<Animator> ();
-//			hash = GameObject.FindGameObjectWithTag(Tags.gameController).GetComponent<HashIDs>();
-
-		// Making sure the rotation is controlled by Mecanim.
-//		nav.updateRotation = false;
-//		nav.updateRotation = true;
-		// Creating an instance of the AnimatorSetup class and calling it's constructor.
-			animSetup = new AnimatorSetup(anim);
-
-		// Set the weights for the shooting and gun layers to 1.
-//		anim.SetLayerWeight (1, 1f);
-//		anim.SetLayerWeight (2, 1f);
 
 		// We need to convert the angle for the deadzone from degrees to radians.
 		deadZone *= Mathf.Deg2Rad;
@@ -52,11 +39,11 @@ public class EnemyAnimation : MonoBehaviour
 	void OnAnimatorMove ()
 	{
 		// Set the NavMeshAgent's velocity to the change in position since the last frame,
-	//by the time it took for the last frame.
+		//by the time it took for the last frame.
 		nav.velocity = anim.deltaPosition / Time.deltaTime;
 
 		// The gameobject's rotation is driven by the animation's rotation.
-//		transform.rotation = anim.rootRotation;
+		//		transform.rotation = anim.rootRotation;
 	}
 
 
@@ -89,7 +76,11 @@ public class EnemyAnimation : MonoBehaviour
 		}
 
 		// Call the Setup function of the helper class with the given parameters.
-		animSetup.Setup(speed,angle);
+
+
+		anim.SetFloat ("Speed", speed);
+
+
 	}
 
 
@@ -97,8 +88,8 @@ public class EnemyAnimation : MonoBehaviour
 	{
 		// If the vector the angle is being calculated to is 0...
 		if (toVector == Vector3.zero)
-				// ... the angle between them is 0.
-				return 0f;
+			// ... the angle between them is 0.
+			return 0f;
 
 		// Create a float to store the angle between the facing of the enemy and the direction it's travelling.
 		float angle = Vector3.Angle (fromVector, toVector);

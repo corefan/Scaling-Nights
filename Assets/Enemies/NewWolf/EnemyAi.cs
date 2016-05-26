@@ -3,44 +3,54 @@ using System.Collections;
 
 public class EnemyAi : MonoBehaviour
 {
-
-	public float patrolSpeed = 2f;
 	// The nav mesh agent's speed when patrolling.
-	public float chaseSpeed = 5f;
+	public float patrolSpeed = 3f;
 	// The nav mesh agent's speed when chasing.
-	public float chaseWaitTime = 5f;
+	public float chaseSpeed = 6f;
 	// The amount of time to wait when the last sighting is reached.
-	public float patrolWaitTime = 1f;
+	public float chaseWaitTime = 5f;
 	// The amount of time to wait when the patrol way point is reached.
-	public Transform[] patrolWayPoints;
+	public float patrolWaitTime = 1f;
 	// An array of transforms for the patrol route.
+	public Transform[] patrolWayPoints;
+	// Debug Varialble.
 	int controlVar = 1;
 
-	private EnemySight enemySight;
+	private Animator anim;
 	// Reference to the EnemySight script.
-	private NavMeshAgent nav;
+	private EnemySight enemySight;
 	// Reference to the nav mesh agent.
-	private Transform player;
+	private NavMeshAgent nav;
 	// Reference to the player's transform.
-	private Player playerHealth;
+	private Transform playerPosition;
 	// Reference to the PlayerHealth script.
-	private LastPlayerSight lastPlayerSighting;
+	private Player player;
 	// Reference to the last global sighting of the player.
-	private float chaseTimer;
+	private LastPlayerSight lastPlayerSighting;
 	// A timer for the chaseWaitTime.
-	private float patrolTimer;
+	private float chaseTimer;
 	// A timer for the patrolWaitTime.
-	private int wayPointIndex;
+	private float patrolTimer;
 	// A counter for the way point array.
+	private int wayPointIndex;
+
+	public float timeBetweenAttacks = 0.5f;
+	// The time in seconds between each attack.
+	public int attackDamage = 10;
+	// The amount of health taken away per attack.
+	float timer;
+	// Timer for counting up to the next attack.
+
 
 
 	void Awake ()
 	{
 		// Setting up the references.
+		anim = GetComponent <Animator>();
 		enemySight = GetComponent<EnemySight> ();
 		nav = GetComponent<NavMeshAgent> ();
-		player = GameObject.FindGameObjectWithTag (Tags.player).transform;
-		playerHealth = player.GetComponent<Player> ();
+		playerPosition = GameObject.FindGameObjectWithTag (Tags.player).transform;
+		player = playerPosition.GetComponent<Player> ();
 		lastPlayerSighting = GameObject.FindGameObjectWithTag (Tags.gameController).GetComponent<LastPlayerSight> ();
 	}
 
@@ -48,7 +58,7 @@ public class EnemyAi : MonoBehaviour
 	void Update ()
 	{
 		// If the player is in sight and is alive...
-		if (enemySight.playerInSight && playerHealth.getHealth () > 0f) {
+		if (enemySight.playerInSight && player.getHealth () > 0f) {
 			// ... shoot.
 			Shooting ();
 //			Debug.Log ("SHOOTING " + controlVar);
@@ -56,7 +66,7 @@ public class EnemyAi : MonoBehaviour
 		}
 
 			// If the player has been sighted and isn't dead...
-		else if (enemySight.personalLastSighting != lastPlayerSighting.resetPosition && playerHealth.getHealth () > 0f) {
+		else if (enemySight.personalLastSighting != lastPlayerSighting.resetPosition && player.getHealth () > 0f) {
 			// ... chase.
 			Chasing ();
 //			Debug.Log ("CHASING " + controlVar);
@@ -76,6 +86,9 @@ public class EnemyAi : MonoBehaviour
 	{
 		// Stop the enemy where it is.
 		nav.Stop ();
+		anim.SetBool ("Attacking", true);
+		anim.SetFloat ("Speed",0f );
+		Shoot ();
 	}
 
 
@@ -91,6 +104,8 @@ public class EnemyAi : MonoBehaviour
 
 		// Set the appropriate speed for the NavMeshAgent.
 		nav.speed = chaseSpeed;
+		anim.SetBool ("Attacking", false);	
+		anim.SetFloat ("Speed", chaseSpeed);
 
 		// If near the last personal sighting...
 		if (nav.remainingDistance < nav.stoppingDistance) {
@@ -115,6 +130,12 @@ public class EnemyAi : MonoBehaviour
 		// Set an appropriate speed for the NavMeshAgent.
 		nav.speed = patrolSpeed;
 
+		Vector3 movement = Vector3.ClampMagnitude (nav.nextPosition, nav.speed);
+
+		anim.SetBool ("Attacking", false);
+
+		anim.SetFloat ("Speed", movement.magnitude);
+
 		// If near the next waypoint or there is no destination...
 		if (nav.destination == lastPlayerSighting.resetPosition || nav.remainingDistance < nav.stoppingDistance) {
 			// ... increment the timer.
@@ -136,6 +157,32 @@ public class EnemyAi : MonoBehaviour
 				patrolTimer = 0;
 
 		// Set the destination to the patrolWayPoint.
-		nav.destination = patrolWayPoints [wayPointIndex].position;
+//		nav.destination = patrolWayPoints [wayPointIndex].position;
+		nav.SetDestination (patrolWayPoints[wayPointIndex].position);
 	}
+
+	void Shoot ()
+	{
+		// Add the time since Update was last called to the timer.
+		timer += Time.deltaTime;
+
+		// If the timer exceeds the time between attacks, the player is in range and this enemy is alive...
+		if (timer >= timeBetweenAttacks && enemySight.playerInSight) {
+			// ... attack.
+			Damage ();
+		}
+	}
+
+	void Damage ()
+	{
+		// Reset the timer.
+		timer = 0f;
+
+		// If the player has health to lose...
+		if (player.getHealth () > 0) {
+			// ... damage the player.
+			player.TakeDamage(attackDamage);
+		}
+	}
+
 }
