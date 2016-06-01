@@ -39,9 +39,9 @@ public class DialogController : MonoBehaviour
 
 	public void Show (int index)
 	{
+		Hide ();
 		gameObject.SetActive (true);
 		dialogs [index].SetActive (true);
-
 	}
 
 	public void Hide ()

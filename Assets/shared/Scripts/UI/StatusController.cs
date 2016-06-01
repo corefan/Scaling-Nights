@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class StatusController : MonoBehaviour
 {
-	[SerializeField] private Player _player;
 	[SerializeField]
 	private Slider hunger;
 	[SerializeField]
@@ -15,14 +14,13 @@ public class StatusController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		_player = GameObject.Find ("Player").GetComponent <Player> ();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		hunger.value = _player.hunger;
-		thirst.value = _player.thirst;
-		heat.value = _player.heat;
+		hunger.value = Manager.player.hunger;
+		thirst.value = Manager.player.thirst;
+		heat.value = Manager.player.heat;
 	}
 }

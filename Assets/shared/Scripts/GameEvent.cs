@@ -8,7 +8,6 @@ public static class GameEvent
 	public const string HIDE_CURSOR = "HIDE_CURSOR";
 
 	public const string SHOW_INVENTORY = "SHOW_INVENTORY";
-	public const string HIDE_INVENTORY = "HIDE_INVENTORY";
 
 	public const string SHOW_DIALOG = "SHOW_DIALOG";
 	public const string HIDE_DIALOG = "HIDE_DIALOG";
@@ -17,6 +16,7 @@ public static class GameEvent
 	public const string REMOVE_ITEM = "REMOVE_ITEM";
 
 	public static bool gameOver = false;
+	public static bool isCursorEnabled = false;
 	public static bool isUiEnabled = false;
 	public static bool isPause = false;
 
