@@ -2,12 +2,12 @@
 using System.Collections;
 using UnityEditor;
 
-[RequireComponent (typeof(Collider2D))]
 public class ItemLabel : MonoBehaviour
 {
 	public GameObject item;
 	[SerializeField]
 	private AbstractPopUpController _source;
+	[SerializeField]
 	private AbstractPopUpController _destination;
 	// Use this for initialization
 	void Start ()
@@ -26,7 +26,7 @@ public class ItemLabel : MonoBehaviour
 		_source = transform.parent.parent.gameObject.GetComponent <AbstractPopUpController> ();
 		if (_source.GetType () == typeof(ContainerUIController)) {
 			if (Manager.inventory.InsertItem (item)) {
-				_source.RemoveItem (item);
+				Destroy (gameObject);
 				_destination.RemoveAll ();
 				_destination.UpdateItems ();
 			} 

@@ -9,7 +9,7 @@ public class Consumable : Item
 
 	void Awake ()
 	{
-		tag = "Lootable";
+		tag = "Consumable";
 	}
 	// Use this for initialization
 	void Start ()

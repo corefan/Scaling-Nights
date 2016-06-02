@@ -52,7 +52,7 @@ public class AbstractPopUpController : MonoBehaviour
 				ItemLabel label = Instantiate (item_prefab).GetComponent <ItemLabel> ();
 				Image image = label.transform.GetChild (0).gameObject.GetComponent <Image> ();
 				label.item = item;
-				image.sprite = item.GetComponent <Image> ().sprite;
+				image.sprite = item.GetComponent <Item> ().sprite;
 				label.transform.SetParent (gridlayout.transform);
 			}
 		}
@@ -60,6 +60,7 @@ public class AbstractPopUpController : MonoBehaviour
 
 	public void RemoveItem (GameObject item)
 	{
+		
 		_container.RemoveItem (item);
 	}
 
