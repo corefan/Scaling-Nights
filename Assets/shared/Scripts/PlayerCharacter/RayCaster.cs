@@ -12,6 +12,7 @@ public class RayCaster : MonoBehaviour
 	[SerializeField]
 	private float activate_distance = 5.0f;
 
+	private Camera _camera;
 	private CharacterController _character;
 	private GameObject hitObject;
 
@@ -19,6 +20,7 @@ public class RayCaster : MonoBehaviour
 	void Start ()
 	{
 		_character = GetComponent <CharacterController> ();
+		_camera = transform.GetChild (0).GetComponent <Camera> ();
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
 	}
@@ -27,16 +29,20 @@ public class RayCaster : MonoBehaviour
 	void Update ()
 	{
 		if (!(GameEvent.isPause || GameEvent.isUiEnabled)) {
-			Vector3 point = transform.position + _character.center;
-			if (Physics.SphereCast (point, _character.height / 2, transform.forward, out hit, activate_distance)) {
+			Ray point = _camera.ScreenPointToRay (new Vector3 (_camera.pixelWidth / 2, _camera.pixelHeight / 2, 0f));
+			if (Physics.SphereCast (point, _character.height / 2, out hit, activate_distance)) {
 				hitObject = hit.transform.gameObject;
-				if (hitObject.tag == "Lootable")
+				if (hitObject.tag == "Lootable" || hitObject.tag == "Consumable")
 					Messenger <int>.Broadcast (GameEvent.SHOW_DIALOG, 0);
 				if (Input.GetButtonDown ("Action")) {
 					Container container = hitObject.GetComponent<Container> ();
 					if (container != null) {
 						container.Open ();
-						return;
+					}
+					Item item = hitObject.GetComponent <Item> ();
+					if (item != null) {
+						Manager.inventory.InsertItem (item.gameObject);
+						item.gameObject.SetActive (false);
 					}
 				}
 			} else {

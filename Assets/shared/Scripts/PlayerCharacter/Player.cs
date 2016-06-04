@@ -43,27 +43,29 @@ public class Player : MonoBehaviour
 
 	public void DecrementHunger (float value)
 	{
-		IncrementValue (hunger, value, false);
+		IncrementValue (ref hunger, value, false);
 	}
 
 	public void DecrementThirst (float value)
 	{
-		IncrementValue (thirst, value, false);
+		IncrementValue (ref thirst, value, false);
 	}
 
 	public void DecrementHeat (float value)
 	{
-		IncrementValue (heat, value, false);
+		IncrementValue (ref heat, value, false);
 	}
 
-	private void IncrementValue (float base_value, float value, bool recursion)
+	private void IncrementValue (ref float base_value, float value, bool recursion)
 	{
 		
 		if (base_value + value > 100) {
 			base_value += value - (base_value + value - 100);
+		} else {
+			base_value = 100;
 		}
 		if (!recursion) {
-			IncrementValue (health, value, true);
+			IncrementValue (ref health, value, true);
 		}
 
 	}

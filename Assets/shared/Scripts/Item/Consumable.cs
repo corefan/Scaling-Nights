@@ -24,12 +24,16 @@ public class Consumable : Item
 
 	public new void Use ()
 	{
+		base.Use ();
+		Debug.Log ("USE");
 		switch (player_field.ToUpper ()) {
 		case "HUNGER":
 			Manager.player.DecrementHunger (value);
+			Destroy (gameObject);
 			break;
 		case "THIRST":
 			Manager.player.DecrementThirst (value);
+			Destroy (gameObject);
 			break;
 		default:
 			Debug.Log ("parameter doesn't match");

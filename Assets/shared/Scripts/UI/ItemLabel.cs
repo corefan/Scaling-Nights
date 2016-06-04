@@ -30,6 +30,13 @@ public class ItemLabel : MonoBehaviour
 				_destination.RemoveAll ();
 				_destination.UpdateItems ();
 			} 
+		} else if (_source.GetType () == typeof(InventoryController)) {
+			Consumable consumable = item.GetComponent <Consumable> ();
+			if (consumable != null) {
+				consumable.Use ();
+				Destroy (gameObject);
+			}
+
 		}
 	}
 

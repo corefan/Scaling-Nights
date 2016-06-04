@@ -15,6 +15,7 @@ public class CameraEffectController : MonoBehaviour
 	{
 		_bloom = GetComponent <Bloom> ();
 		_blur = GetComponent <MotionBlur> ();
+		Deactivate ();
 	}
 	
 	// Update is called once per frame
