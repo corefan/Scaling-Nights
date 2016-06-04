@@ -13,16 +13,12 @@ public class CursorController : MonoBehaviour
 	{
 		Messenger<int>.AddListener (GameEvent.SHOW_CURSOR, Show);
 		Messenger.AddListener (GameEvent.HIDE_CURSOR, Hide);
-		Messenger.AddListener (GameEvent.SHOW_INVENTORY, Show);
-		Messenger.AddListener (GameEvent.HIDE_INVENTORY, Hide);
 	}
 
 	void OnDestroy ()
 	{
 		Messenger<int>.RemoveListener (GameEvent.SHOW_CURSOR, Show);
 		Messenger.RemoveListener (GameEvent.HIDE_CURSOR, Hide);
-		Messenger.RemoveListener (GameEvent.SHOW_INVENTORY, Show);
-		Messenger.RemoveListener (GameEvent.HIDE_INVENTORY, Hide);
 	}
 	// Use this for initialization
 	void Start ()
@@ -31,36 +27,29 @@ public class CursorController : MonoBehaviour
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
 		_cursor.enabled = false;
+
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if (GameEvent.isUiEnabled || GameEvent.isPause) {
-			transform.position = Input.mousePosition;
-		}
-	}
-
-	public void Show ()
-	{
-
-		Cursor.lockState = CursorLockMode.None;
-		_cursor.sprite = _icons [0];
-		_cursor.enabled = true;
+		transform.position = Input.mousePosition;
 	}
 
 	public void Show (int index)
 	{
-		
+		GameEvent.isCursorEnabled = true;
 		Cursor.lockState = CursorLockMode.None;
 		_cursor.sprite = _icons [index];
 		_cursor.enabled = true;
+
 	}
 
 	public void Hide ()
 	{
-		Cursor.lockState = CursorLockMode.None;
-		gameObject.transform.position = new Vector3 (0, 0, 0);
+		GameEvent.isCursorEnabled = false;
+		Cursor.lockState = CursorLockMode.Locked;
 		_cursor.enabled = false;
+
 	}
 }

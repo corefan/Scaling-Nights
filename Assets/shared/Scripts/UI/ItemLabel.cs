@@ -1,16 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor;
 
-[RequireComponent (typeof(Collider2D))]
 public class ItemLabel : MonoBehaviour
 {
 	public GameObject item;
-	public int index;
-	[SerializeField] private Inventory _inventory;
+	[SerializeField]
+	private AbstractPopUpController _source;
+	[SerializeField]
+	private AbstractPopUpController _destination;
 	// Use this for initialization
 	void Start ()
 	{
-		_inventory = GameObject.Find ("Player").GetComponent <Inventory> ();
+		_destination = GameObject.Find ("InventoryHUD").GetComponent <AbstractPopUpController> ();
 	}
 	
 	// Update is called once per frame
@@ -21,8 +23,20 @@ public class ItemLabel : MonoBehaviour
 
 	public void MoveTo ()
 	{
-		if (_inventory.InsertItem (item)) {
-			Destroy (gameObject.transform.parent.GetChild (index).gameObject);
+		_source = transform.parent.parent.gameObject.GetComponent <AbstractPopUpController> ();
+		if (_source.GetType () == typeof(ContainerUIController)) {
+			if (Manager.inventory.InsertItem (item)) {
+				Destroy (gameObject);
+				_destination.RemoveAll ();
+				_destination.UpdateItems ();
+			} 
+		} else if (_source.GetType () == typeof(InventoryController)) {
+			Consumable consumable = item.GetComponent <Consumable> ();
+			if (consumable != null) {
+				consumable.Use ();
+				Destroy (gameObject);
+			}
+
 		}
 	}
 
