@@ -156,6 +156,8 @@ ModelImporter:
     7400012: walk
     7400014: Wolf_obj_body|00
     7400016: empty
+    7400018: firstOffensiveStep
+    7400020: middleOffensiveStep
     9500000: //RootNode
     13700000: Wolf_obj_body
     13700002: Wolf_obj_fur
@@ -1021,10 +1023,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: empty
-      takeName: Wolf_obj_fur|00
+      name: middleOffensiveStep
+      takeName: run2|Wolf_creep_cycle
       firstFrame: 0
-      lastFrame: 1
+      lastFrame: 10
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
