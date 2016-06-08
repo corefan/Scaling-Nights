@@ -5,7 +5,7 @@ public class EnemiesSight : MonoBehaviour
 {
 	public bool playerInSight = false;
 	public bool playerInArea = false;
-	public float rotSpeed = 100f;
+	public float rotSpeed = 10f;
 
 //	private NavMeshAgent nav;
 //	private SphereCollider col;
@@ -30,13 +30,15 @@ public class EnemiesSight : MonoBehaviour
 			RaycastHit hit;
 			Ray ray = new Ray (transform.position, transform.forward);
 
-			if (Physics.SphereCast (ray, 0.75f, out hit, 2.0f)) {
+			if (Physics.SphereCast (ray, 0.75f, out hit, 1.0f)) {
 				GameObject hitObject = hit.transform.gameObject;
 
 				if (hitObject.GetComponent<CharacterController> ()) {
 					Debug.Log ("hit.collider.gameObject == player");
 					// ... the player is in sight.
 					playerInSight = true;
+				} else {
+					playerInSight = false;
 				}
 			}
 		}
@@ -47,9 +49,9 @@ public class EnemiesSight : MonoBehaviour
 	{
 		// If the player has entered the trigger sphere...
 		if (other.GetComponent<CharacterController> ()) {
-			Debug.Log ("In AREA");
+//			Debug.Log ("In AREA");
 			// By default the player is not in sight.
-			playerInSight = false;
+//			playerInSight = false;
 			playerInArea = true;
 			playerPosition.position = other.transform.position;
 
