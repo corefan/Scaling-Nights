@@ -26,17 +26,23 @@ public class ItemLabel : MonoBehaviour
 		_source = transform.parent.parent.gameObject.GetComponent <AbstractPopUpController> ();
 		if (_source.GetType () == typeof(ContainerUIController)) {
 			if (Manager.inventory.InsertItem (item)) {
-				Destroy (gameObject);
+				Manager.ShowDialogWithTimer (1, this);
+				DestroyObject (gameObject);
 				_destination.RemoveAll ();
 				_destination.UpdateItems ();
-			} 
+			} else {
+				Manager.ShowDialogWithTimer (2, this);
+			}
 		} else if (_source.GetType () == typeof(InventoryController)) {
 			Consumable consumable = item.GetComponent <Consumable> ();
 			if (consumable != null) {
 				consumable.Use ();
-				Destroy (gameObject);
+				if (item.gameObject.scene.name != null) {
+					Destroy (item.gameObject);
+				
+				}
 			}
-
+			Destroy (gameObject);
 		}
 	}
 

@@ -30,20 +30,12 @@ public class RayCaster : MonoBehaviour
 	{
 		if (!(GameEvent.isPause || GameEvent.isUiEnabled)) {
 			Ray point = _camera.ScreenPointToRay (new Vector3 (_camera.pixelWidth / 2, _camera.pixelHeight / 2, 0f));
-			if (Physics.SphereCast (point, _character.height / 2, out hit, activate_distance)) {
+			if (Physics.SphereCast (point, 1, out hit, activate_distance)) {
 				hitObject = hit.transform.gameObject;
-				if (hitObject.tag == "Lootable" || hitObject.tag == "Consumable")
+				if (hitObject.tag == "Lootable" || hitObject.tag == "Consumable" || hitObject.tag == "Weapon")
 					Messenger <int>.Broadcast (GameEvent.SHOW_DIALOG, 0);
 				if (Input.GetButtonDown ("Action")) {
-					Container container = hitObject.GetComponent<Container> ();
-					if (container != null) {
-						container.Open ();
-					}
-					Item item = hitObject.GetComponent <Item> ();
-					if (item != null) {
-						Manager.inventory.InsertItem (item.gameObject);
-						item.gameObject.SetActive (false);
-					}
+					Action ();
 				}
 			} else {
 				Messenger.Broadcast (GameEvent.HIDE_DIALOG);
@@ -52,5 +44,43 @@ public class RayCaster : MonoBehaviour
 
 
 	}
+
+	private void Action ()
+	{
+		Container container = hitObject.GetComponent<Container> ();
+		if (container != null) {
+			container.Open ();
+		}
+		Consumable consumable = hitObject.GetComponent <Consumable> ();
+		if (consumable != null) {
+			if (Manager.inventory.InsertItem (consumable.gameObject)) {
+				consumable.gameObject.SetActive (false);
+				Manager.ShowDialogWithTimer (1, this);
+			} else {
+				Manager.ShowDialogWithTimer (2, this);
+			}
+		}
+		MeleeWeapon melee = hitObject.GetComponent <MeleeWeapon> ();
+		if (melee != null) {
+			Transform hand = GameObject.Find ("RightHand").transform;
+			if (hand.childCount == 0) {
+				Manager.ShowDialogWithTimer (3, this);
+				melee.transform.SetParent (hand);
+				melee.GetComponent <Rigidbody> ().useGravity = false;
+				melee.GetComponent <Rigidbody> ().isKinematic = true;
+				melee.transform.localRotation = Quaternion.Euler (new Vector3 (52f, 260f, 113f));
+				melee.transform.localPosition = new Vector3 (0.25f, -0.15f, 1.8f);
+			} else {
+				if (Manager.inventory.InsertItem (melee.gameObject)) {
+					melee.gameObject.SetActive (false);
+					Manager.ShowDialogWithTimer (1, this);
+				} else {
+					Manager.ShowDialogWithTimer (2, this);
+				}
+			}
+		}
+	}
 }
+
+
 

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Lootable
   - Consumable
+  - Weapon
+  - Stars
   layers:
   - Default
   - TransparentFX
@@ -16,8 +18,8 @@ TagManager:
   - 
   - 
   - Player
-  - 
-  - 
+  - Weapons
+  - Stars
   - 
   - 
   - 

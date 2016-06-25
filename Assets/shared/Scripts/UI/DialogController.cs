@@ -41,6 +41,7 @@ public class DialogController : MonoBehaviour
 	{
 		Hide ();
 		gameObject.SetActive (true);
+		current_dialog = index;
 		dialogs [index].SetActive (true);
 	}
 
