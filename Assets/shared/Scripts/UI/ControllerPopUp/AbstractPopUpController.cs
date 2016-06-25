@@ -39,6 +39,7 @@ public class AbstractPopUpController : MonoBehaviour
 		if (transform.GetChild (0).gameObject.activeSelf) {
 			Hide ();
 		} else {
+			RemoveAll ();
 			UpdateItems ();
 			Messenger<int>.Broadcast (GameEvent.SHOW_CURSOR, 0);
 			transform.GetChild (0).gameObject.SetActive (true);
@@ -57,6 +58,7 @@ public class AbstractPopUpController : MonoBehaviour
 			}
 		}
 	}
+
 
 	public void RemoveItem (GameObject item)
 	{
