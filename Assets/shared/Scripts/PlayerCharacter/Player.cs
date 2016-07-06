@@ -26,47 +26,18 @@ public class Player : MonoBehaviour
 				thirst -= 1 * Time.deltaTime * thirst_scale;
 				heat -= 1 * Time.deltaTime * heat_scale;
 				if (hunger < 0) {
-					health -= hunger_scale * Time.deltaTime;
+					health -= hunger_scale;
 				}
 				if (thirst < 0) {
-					health -= thirst_scale * Time.deltaTime;
+					health -= thirst_scale;
 				}
 				if (heat < 0) {
-					health -= heat_scale * Time.deltaTime;
+					health -= heat_scale;
 				}
 
 			} else {
 				GameEvent.GameOver ();
 			}
 		}
-	}
-
-	public void DecrementHunger (float value)
-	{
-		IncrementValue (ref hunger, value, false);
-	}
-
-	public void DecrementThirst (float value)
-	{
-		IncrementValue (ref thirst, value, false);
-	}
-
-	public void DecrementHeat (float value)
-	{
-		IncrementValue (ref heat, value, false);
-	}
-
-	private void IncrementValue (ref float base_value, float value, bool recursion)
-	{
-		
-		if (base_value + value > 100) {
-			base_value += value - (base_value + value - 100);
-		} else {
-			base_value = 100;
-		}
-		if (!recursion) {
-			IncrementValue (ref health, value, true);
-		}
-
 	}
 }
