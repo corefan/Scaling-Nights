@@ -7,6 +7,7 @@ public class EnemyGenerator : MonoBehaviour
 	[SerializeField] private GameObject[] enemyPrefab;
 	[SerializeField] private Transform[] startingPoints;
 
+	private bool canGenerate;
 	private int[] enemyCount;
 	private GameObject[][] enemies;
 
@@ -24,8 +25,10 @@ public class EnemyGenerator : MonoBehaviour
 		enemyCount [1] = 5;
 
 		for (int i = 0; i < enemies.Length; i++) {
-			enemies[i] = new GameObject[enemyCount[i]];
+			enemies [i] = new GameObject[enemyCount [i]];
 		}
+
+		canGenerate = true;
 			
 
 	}
@@ -35,26 +38,41 @@ public class EnemyGenerator : MonoBehaviour
 	{
 		for (int i = 0; i < startingPoints.Length; i++) {
 
-			for(int j = 0; j < enemyCount[i]; j++) {
-
-				StartCoroutine(WaitAndInstantiate(waitGenerationTime));
-
-				if (enemies [i][j] == null) {
-
-					enemies [i][j] = Instantiate (enemyPrefab[i]) as GameObject;
-
-					enemies [i][j].transform.position = startingPoints[i].transform.position;
-
-					float angle = Random.Range (0, 360);
-					enemies [i][j].transform.Rotate (0, angle, 0);
+			for (int j = 0; j < enemyCount [i]; j++) {
+				//		FIXME
+				if (canGenerate && enemies [i] [j] == null) { 
+					StartCoroutine (WaitAndInstantiate (waitGenerationTime, i,j));
 				}
+
+				//	StartCoroutine(WaitAndInstantiate(waitGenerationTime));
+
+//				if (enemies [i][j] == null) {
+//
+//					enemies [i][j] = Instantiate (enemyPrefab[i]) as GameObject;
+//
+//					enemies [i][j].transform.position = startingPoints[i].transform.position;
+//
+//					float angle = Random.Range (0, 360);
+//					enemies [i][j].transform.Rotate (0, angle, 0);
+//				}
 
 			}
 		}
 	}
 
-	IEnumerator WaitAndInstantiate(float waitTime) {
-		yield return new WaitForSeconds(waitTime);
-	}
+	IEnumerator WaitAndInstantiate (float waitTime, int i,int j)
+	{
 
+		canGenerate = false;
+
+		yield return new WaitForSeconds (waitTime);
+
+		Debug.Log ("i :" + i + " j :"+  j );
+
+		enemies[i][j] = Instantiate (enemyPrefab [i]) as GameObject;
+
+		enemies[i][j].transform.position = startingPoints [i].transform.position;
+
+		canGenerate = true;
+	}
 }

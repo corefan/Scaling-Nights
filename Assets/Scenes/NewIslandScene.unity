@@ -772,7 +772,7 @@ MonoBehaviour:
   startingPoints:
   - {fileID: 741103586}
   - {fileID: 1273119122}
-  waitGenerationTime: 2
+  waitGenerationTime: 4
 --- !u!1001 &580703526
 Prefab:
   m_ObjectHideFlags: 0
