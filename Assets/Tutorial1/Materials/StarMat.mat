@@ -93,7 +93,7 @@ Material:
       second: 0.5
     - first:
         name: _InvFade
-      second: 1.02
+      second: 0.44
     - first:
         name: _Metallic
       second: 0

@@ -67,6 +67,11 @@ public class Player : MonoBehaviour
 		if (!recursion) {
 			IncrementValue (ref health, value, true);
 		}
+	}
 
+	public void TakeDamage(int damage) {
+		if (health > 0) {
+			health -= damage;
+		}
 	}
 }

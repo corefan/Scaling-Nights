@@ -88,7 +88,7 @@ QualitySettings:
     name: Good
     pixelLightCount: 2
     shadows: 1
-    shadowResolution: 1
+    shadowResolution: 2
     shadowProjection: 1
     shadowCascades: 2
     shadowDistance: 40
