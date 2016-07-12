@@ -62,7 +62,7 @@ public class EnemyAi : MonoBehaviour
 	
 		Debug.Log (enemySight.playerInSight);
 
-		if (enemySight.playerInSight && player.getHealth () > 0f) {
+		if (enemySight.playerInSight && player.health > 0f) {
 			// ... shoot.
 			Shooting ();
 //			Debug.Log ("SHOOTING " + controlVar);
@@ -72,7 +72,7 @@ public class EnemyAi : MonoBehaviour
 			// If the player has been sighted and isn't dead...
 //		else if (enemySight.personalLastSighting != lastPlayerSighting.resetPosition && player.getHealth () > 0f) {
 			// ... chase.
-		else if (enemySight.playerInArea && player.getHealth () > 0f) {
+		else if (enemySight.playerInArea && player.health > 0f) {
 			Chasing ();
 //			Debug.Log ("CHASING " + controlVar);
 //			controlVar++;
@@ -193,7 +193,7 @@ public class EnemyAi : MonoBehaviour
 		timer = 0f;
 
 		// If the player has health to lose...
-		if (player.getHealth () > 0) {
+		if (player.health> 0) {
 			// ... damage the player.
 			player.TakeDamage(attackDamage);
 		}

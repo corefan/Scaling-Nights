@@ -6,8 +6,7 @@ public class FPSInput : MonoBehaviour
 	public float speed;
 	public float walkSpeed = 2.0f;
 	public float runSpeed = 8.0f;
-	[SerializeField]
-	private Animator _animator;
+	[SerializeField] private Animator _animator;
 	private CharacterController _charController;
 	private float gravity = -9.8f;
 	// Use this for initialization

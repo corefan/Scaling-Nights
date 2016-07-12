@@ -53,9 +53,9 @@ public class EnemiesAi : MonoBehaviour
 
 	void FixedUpdate ()
 	{
-		if (enemySight.playerInSight && player.getHealth () > 0) {
+		if (enemySight.playerInSight && player.health > 0) {
 			Shooting ();
-		} else if (!enemySight.playerInSight && enemySight.playerInArea && player.getHealth () > 0) {
+		} else if (!enemySight.playerInSight && enemySight.playerInArea && player.health > 0) {
 			Chasing ();
 		} else {
 			Patrolling ();
@@ -98,7 +98,7 @@ public class EnemiesAi : MonoBehaviour
 		timer = 0f;
 
 		// If the player has health to lose...
-		if (player.getHealth ()	>	0) {
+		if (player.health >	0) {
 			player.TakeDamage (attackDamage);
 		}
 	}
