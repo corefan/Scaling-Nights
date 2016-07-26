@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
 				}
 
 			} else {
+				Debug.Log ("END");
 				GameEvent.GameOver ();
 			}
 		}
@@ -69,7 +70,8 @@ public class Player : MonoBehaviour
 		}
 	}
 
-	public void TakeDamage(int damage) {
+	public void TakeDamage (int damage)
+	{
 		if (health > 0) {
 			health -= damage;
 		}

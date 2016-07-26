@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011819523158}
   - 114: {fileID: 114000010357141216}
-  - 114: {fileID: 114000010392697724}
   - 114: {fileID: 114000013881102514}
   m_Layer: 0
   m_Name: Manager
@@ -53,24 +52,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a91cf400b487e4f2daceb6b809adb05b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000010392697724
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013810903090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84770a4316c294850936568b30d741b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  hunger: 100
-  thirst: 100
-  heat: 100
-  hunger_scale: 0.8
-  thirst_scale: 1.2
-  heat_scale: 1
 --- !u!114 &114000013881102514
 MonoBehaviour:
   m_ObjectHideFlags: 1

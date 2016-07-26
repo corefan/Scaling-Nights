@@ -110,7 +110,7 @@ GameObject:
   - 114: {fileID: 114000013353918104}
   - 114: {fileID: 114000011264877406}
   m_Layer: 0
-  m_Name: Slider
+  m_Name: SliderHunger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -194,7 +194,7 @@ GameObject:
   - 114: {fileID: 114000012733888806}
   - 114: {fileID: 114000011625565872}
   m_Layer: 0
-  m_Name: Slider
+  m_Name: SliderHeat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -513,7 +513,7 @@ GameObject:
   - 114: {fileID: 114000013536291524}
   - 114: {fileID: 114000012897497352}
   m_Layer: 0
-  m_Name: Slider
+  m_Name: SliderThirst
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof(Player))]
 [RequireComponent (typeof(Inventory))]
 public class Manager : MonoBehaviour
 {
@@ -13,7 +12,7 @@ public class Manager : MonoBehaviour
 	// Use this for initialization
 	void Awake ()
 	{
-		player = GetComponent <Player> ();
+		player = GameObject.Find ("Player").GetComponent<Player> ();
 		inventory = GetComponent<Inventory> ();
 		CameraEffect = GameObject.Find ("MainCamera").GetComponent <CameraEffectController> ();
 	}
