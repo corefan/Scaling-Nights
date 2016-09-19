@@ -34,7 +34,7 @@ public class EnemiesSight : MonoBehaviour
 				GameObject hitObject = hit.transform.gameObject;
 
 				if (hitObject.GetComponent<CharacterController> ()) {
-					Debug.Log ("hit.collider.gameObject == player");
+				//	Debug.Log ("hit.collider.gameObject == player");
 					// ... the player is in sight.
 					playerInSight = true;
 				} else {
@@ -49,7 +49,7 @@ public class EnemiesSight : MonoBehaviour
 	{
 		// If the player has entered the trigger sphere...
 		if (other.GetComponent<CharacterController> ()) {
-//			Debug.Log ("In AREA");
+
 			// By default the player is not in sight.
 //			playerInSight = false;
 			playerInArea = true;

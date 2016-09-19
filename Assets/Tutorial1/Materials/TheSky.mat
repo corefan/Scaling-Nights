@@ -72,7 +72,7 @@ Material:
     m_Floats:
     - first:
         name: _AtmosphereThickness
-      second: 1.2019411
+      second: 1.3094281
     - first:
         name: _BumpScale
       second: 1

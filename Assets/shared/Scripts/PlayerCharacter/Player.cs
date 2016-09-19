@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
 	public float hunger_scale = 0.8f;
 	public float thirst_scale = 1.2f;
 	public float heat_scale = 1f;
+
 	// Use this for initialization
 	void Start ()
 	{

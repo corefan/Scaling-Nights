@@ -39,7 +39,6 @@ public class EnemyGenerator : MonoBehaviour
 		for (int i = 0; i < startingPoints.Length; i++) {
 
 			for (int j = 0; j < enemyCount [i]; j++) {
-				//		FIXME
 				if (canGenerate && enemies [i] [j] == null) { 
 					StartCoroutine (WaitAndInstantiate (waitGenerationTime, i,j));
 				}
