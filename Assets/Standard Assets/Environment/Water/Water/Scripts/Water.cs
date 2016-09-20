@@ -98,16 +98,16 @@ namespace UnityStandardAssets.Water
                 // plane. This way we clip everything below/above it for free.
                 Vector4 clipPlane = CameraSpacePlane(reflectionCamera, pos, normal, 1.0f);
                 reflectionCamera.projectionMatrix = cam.CalculateObliqueMatrix(clipPlane);
-
                 reflectionCamera.cullingMask = ~(1 << 4) & reflectLayers.value; // never render water layer
                 reflectionCamera.targetTexture = m_ReflectionTexture;
-                GL.invertCulling = true;
+                bool oldCulling = GL.invertCulling;
+				GL.invertCulling = !oldCulling;
                 reflectionCamera.transform.position = newpos;
                 Vector3 euler = cam.transform.eulerAngles;
                 reflectionCamera.transform.eulerAngles = new Vector3(-euler.x, euler.y, euler.z);
                 reflectionCamera.Render();
                 reflectionCamera.transform.position = oldpos;
-                GL.invertCulling = false;
+                GL.invertCulling = oldCulling;
                 GetComponent<Renderer>().sharedMaterial.SetTexture("_ReflectionTex", m_ReflectionTexture);
             }
 
@@ -120,7 +120,6 @@ namespace UnityStandardAssets.Water
                 // plane. This way we clip everything below/above it for free.
                 Vector4 clipPlane = CameraSpacePlane(refractionCamera, pos, normal, -1.0f);
                 refractionCamera.projectionMatrix = cam.CalculateObliqueMatrix(clipPlane);
-
                 refractionCamera.cullingMask = ~(1 << 4) & refractLayers.value; // never render water layer
                 refractionCamera.targetTexture = m_RefractionTexture;
                 refractionCamera.transform.position = cam.transform.position;
