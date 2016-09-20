@@ -36,7 +36,7 @@ public class EnemiesAi : MonoBehaviour
 		enemySight = GetComponent<EnemiesSight> ();
 		nav = GetComponent<NavMeshAgent> ();
 		wayPointStored = GameObject.Find ("PatrolController").transform.GetComponent<WayPointsStore> ();
-		player = enemySight.getPlayerPosition ().GetComponent<Player> ();
+		player = GameObject.Find ("Manager").transform.GetComponent<Player> ();
 
 		wayPoints ();
 	}
@@ -60,29 +60,22 @@ public class EnemiesAi : MonoBehaviour
 		} else {
 			Patrolling ();
 		}
-
-//		Debug.Log (player.getHealth ());
 	}
 
 
 	void Shooting ()
 	{
-//		Debug.Log ("Shoot");
 		if (!isStopped) {
-			//Debug.Log ("Stopped = true");
-			//nav.Stop ();
 			isStopped = true;
-
 		}
+
 		anim.SetInteger ("State", 2);
 		nav.destination = transform.position;		
 		Shoot ();
 	}
 
 	void Shoot ()
-	{	
-//		anim.SetInteger ("State", 4);
-		// Add the time since Update was last called to the timer.
+	{
 		timer	+=	Time.deltaTime;
 
 		// If the timer exceeds the time between attacks, the player is in range and this enemy is alive...
@@ -93,8 +86,7 @@ public class EnemiesAi : MonoBehaviour
 
 	void Damage ()
 	{
-		
-		// Reset the timer.
+
 		timer = 0f;
 
 		// If the player has health to lose...
@@ -106,9 +98,7 @@ public class EnemiesAi : MonoBehaviour
 
 	void Chasing ()
 	{
-//		Debug.Log ("Chasing");
 		if (isStopped) {
-//			nav.Resume ();
 			isStopped = false;
 		}
 
@@ -118,7 +108,6 @@ public class EnemiesAi : MonoBehaviour
 
 		nav.speed = chaseSpeed;
 
-//		if (nav.remainingDistance < nav.stoppingDistance) {}
 	}
 
 	void Patrolling ()
@@ -127,7 +116,6 @@ public class EnemiesAi : MonoBehaviour
 			return;
 		
 		if (isStopped) {
-//			nav.Resume ();
 			isStopped = false;
 		}
 
@@ -137,8 +125,6 @@ public class EnemiesAi : MonoBehaviour
 
 		nav.SetDestination (patrolWayPoints [wayPointIndex].position);
 
-		// If near the next waypoint or there is no destination...
-//		if (nav.destination == enemySight.getPlayerPosition () || nav.remainingDistance < nav.stoppingDistance) {
 		if (nav.remainingDistance < nav.stoppingDistance) {
 
 			if (wayPointIndex == patrolWayPoints.Length - 1)
@@ -157,8 +143,6 @@ public class EnemiesAi : MonoBehaviour
 		//FIXME
 		//	Number of wayPoints to assign and the starting wayPoint.
 		int hashWayPoints = Random.Range (1, wayPointStored.getWayStored ().Length + 1);
-
-		Debug.Log (hashWayPoints);
 
 		//	Array to remember which wayPoints have I used for this enemy and succesive declaration.
 		int[] memento = new int[hashWayPoints];
@@ -183,7 +167,7 @@ public class EnemiesAi : MonoBehaviour
 
 			while (assigned (hashWayPoints, memento)) {
 				hashWayPoints = Random.Range (0, wayPointStored.getWayStored ().Length);
-//				Debug.Log ("WHILE");
+			
 			}
 
 			patrolWayPoints [i] = wayPointStored.getOneWayStored (hashWayPoints);

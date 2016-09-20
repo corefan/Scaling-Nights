@@ -72,7 +72,11 @@ Material:
     m_Floats:
     - first:
         name: _AtmosphereThickness
+<<<<<<< HEAD
       second: 1.2136855
+=======
+      second: 1.3094281
+>>>>>>> 112cd415e8a74483c9c504600c19b2cdeebfe572
     - first:
         name: _BumpScale
       second: 1
