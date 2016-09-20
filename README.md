@@ -6,4 +6,6 @@
 Scaling Nights is our first first person survival game made with Unity3D.
 [Wiki](https://github.com/LovelyFatBearsStudio/Scaling-Nights/wiki)
 
+![Logo](https://github.com/LovelyFatBearsStudio/Scaling-Nights/blob/master/ScalingNightsLogo.jpeg)
+
 [![Throughput Graph](https://graphs.waffle.io/LovelyFatBearsStudio/Scaling-Nights/throughput.svg)](https://waffle.io/LovelyFatBearsStudio/Scaling-Nights/metrics/throughput)
