@@ -46,7 +46,12 @@ TextureImporter:
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
   textureType: -1
-  buildTargetSettings: []
+  buildTargetSettings:
+  - buildTarget: Standalone
+    maxTextureSize: 128
+    textureFormat: 29
+    compressionQuality: 60
+    allowsAlphaSplitting: 0
   spriteSheet:
     sprites: []
     outline: []
