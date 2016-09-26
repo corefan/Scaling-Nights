@@ -156,10 +156,10 @@ Material:
       second: 1.7931035
     - first:
         name: _FresnelScale
-      second: 0.6571428
+      second: 0.67
     - first:
         name: _GerstnerIntensity
-      second: 0.5
+      second: 0.19
     - first:
         name: _HeightDisplacement
       second: 3.2722514
@@ -214,7 +214,7 @@ Material:
       second: {r: 0.04582553, g: 0.0182, b: 0.045714468, a: 0.027129691}
     - first:
         name: _BaseColor
-      second: {r: 0.09418253, g: 0.17082809, b: 0.19117647, a: 1}
+      second: {r: 0.16738755, g: 0.284962, b: 0.31617647, a: 1}
     - first:
         name: _BumpDirection
       second: {r: 40, g: 40, b: 40, a: -40}
@@ -241,13 +241,13 @@ Material:
       second: {r: 0.6499999, g: -2.9203715, b: 1.6599998, a: -3.9363046}
     - first:
         name: _DistortParams
-      second: {r: 1.4399999, g: 0.24285714, b: 1.8530641, a: -0.53142846}
+      second: {r: 0.41, g: 0.079, b: 3.36, a: 0.07}
     - first:
         name: _Extinction
       second: {r: 4.5, g: 75, b: 300, a: 1}
     - first:
         name: _Foam
-      second: {r: 0.468, g: 0.48666668, b: 0, a: 0}
+      second: {r: 0.354, g: 0.631, b: 0, a: 0}
     - first:
         name: _FoamWaveParams
       second: {r: 0, g: 0.24918434, b: 3.3395782, a: 1}
@@ -277,13 +277,13 @@ Material:
       second: {r: 0.052907113, g: 0.24486735, b: 0.2835821, a: 1}
     - first:
         name: _InvFadeParemeter
-      second: {r: 0.21896552, g: 0.15944828, b: 0.04310345, a: 0}
+      second: {r: 0.447, g: 0.269, b: 0.04310345, a: 0.202}
     - first:
         name: _MainTex_ST
       second: {r: 1, g: 1, b: 0, a: 0}
     - first:
         name: _ReflectionColor
-      second: {r: 0.7076033, g: 0.8498727, b: 0.9547028, a: 0.5019608}
+      second: {r: 0.3651472, g: 0.43856305, b: 0.4926589, a: 0.5019608}
     - first:
         name: _ReflectionTex_ST
       second: {r: 1, g: 1, b: 0, a: 0}

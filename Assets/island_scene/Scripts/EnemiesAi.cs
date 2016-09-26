@@ -36,7 +36,7 @@ public class EnemiesAi : MonoBehaviour
 		enemySight = GetComponent<EnemiesSight> ();
 		nav = GetComponent<NavMeshAgent> ();
 		wayPointStored = GameObject.Find ("PatrolController").transform.GetComponent<WayPointsStore> ();
-		player = GameObject.Find ("Manager").transform.GetComponent<Player> ();
+		player = GameObject.Find ("Player").transform.GetComponent<Player> ();
 
 		wayPoints ();
 	}
