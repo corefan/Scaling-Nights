@@ -28,6 +28,7 @@ public class EnemiesAi : MonoBehaviour
 	public int attackDamage = 10;
 	// Timer for counting up to the next attack.
 	float timer;
+	float timerPatrolling;
 
 	void Awake ()
 	{
@@ -46,6 +47,7 @@ public class EnemiesAi : MonoBehaviour
 		nav.autoBraking = false;
 		isStopped = false;
 		nav.stoppingDistance = 2.0f;
+		timerPatrolling = 0.0f;
 
 		Patrolling ();
 	}
@@ -58,6 +60,7 @@ public class EnemiesAi : MonoBehaviour
 		} else if (!enemySight.playerInSight && enemySight.playerInArea && player.health > 0) {
 			Chasing ();
 		} else {
+			timerPatrolling += 0.1f;
 			Patrolling ();
 		}
 	}
@@ -125,7 +128,7 @@ public class EnemiesAi : MonoBehaviour
 
 		nav.SetDestination (patrolWayPoints [wayPointIndex].position);
 
-		if (nav.remainingDistance < nav.stoppingDistance) {
+		if (nav.remainingDistance < nav.stoppingDistance || timerPatrolling > 5.01f) {
 
 			if (wayPointIndex == patrolWayPoints.Length - 1)
 				wayPointIndex = 0;

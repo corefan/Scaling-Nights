@@ -8,7 +8,7 @@ public class EnemyGenerator : MonoBehaviour
 	[SerializeField] private Transform[] startingPoints;
 
 	private bool canGenerate;
-	private int[] enemyCount;
+	public int[] enemyCount;
 	private GameObject[][] enemies;
 
 	public float waitGenerationTime = 5.0f;
@@ -20,9 +20,7 @@ public class EnemyGenerator : MonoBehaviour
 		
 		enemies = new GameObject[startingPoints.Length][];
 
-		enemyCount = new int[startingPoints.Length];
-		enemyCount [0] = 4;
-		enemyCount [1] = 5;
+//		enemyCount = new int[startingPoints.Length];
 
 		for (int i = 0; i < enemies.Length; i++) {
 			enemies [i] = new GameObject[enemyCount [i]];
