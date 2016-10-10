@@ -3,6 +3,7 @@ using System.Collections;
 using System.Configuration;
 using System.Xml;
 using UnityEditor;
+using System;
 
 [RequireComponent (typeof(CharacterController))]
 public class RayCaster : MonoBehaviour
@@ -30,16 +31,18 @@ public class RayCaster : MonoBehaviour
 	{
 		if (!(GameEvent.isPause || GameEvent.isUiEnabled)) {
 			Ray point = _camera.ScreenPointToRay (new Vector3 (_camera.pixelWidth / 2, _camera.pixelHeight / 2, 0f));
-			if (Physics.SphereCast (point, 1, out hit, activate_distance)) {
+			if (Physics.SphereCast (point, 2, out hit)) {
 				hitObject = hit.transform.gameObject;
-				if (hitObject.tag == "Lootable" || hitObject.tag == "Consumable" || hitObject.tag == "Weapon")
+				if (hitObject.tag == "Lootable" || hitObject.tag == "Consumable" || hitObject.tag == "Weapon") {
 					Messenger <int>.Broadcast (GameEvent.SHOW_DIALOG, 0);
-				if (Input.GetButtonDown ("Action")) {
-					Action ();
+					if (Input.GetButtonDown ("Action")) {
+						Action ();
+					}
+				} else {
+					Messenger.Broadcast (GameEvent.HIDE_DIALOG);
 				}
-			} else {
-				Messenger.Broadcast (GameEvent.HIDE_DIALOG);
 			}
+
 		}
 
 

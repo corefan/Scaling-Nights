@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Security.AccessControl;
 
 public static class GameEvent
 {
@@ -42,5 +43,7 @@ public static class GameEvent
 		gameOver = true;
 		Cursor.lockState = CursorLockMode.None;
 		Time.timeScale = 0;
+		EndingPortal ending = MonoBehaviour.FindObjectOfType <EndingPortal> ();
+		ending.ShipScene ();
 	}
 }

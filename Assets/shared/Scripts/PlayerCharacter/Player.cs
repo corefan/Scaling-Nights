@@ -12,10 +12,14 @@ public class Player : MonoBehaviour
 	public float thirst_scale = 1.2f;
 	public float heat_scale = 1f;
 
+	private AlarmingPlayerDecal alarmingDecal;
+	private DayNightLight sun;
+
 	// Use this for initialization
 	void Start ()
 	{
-	
+		alarmingDecal = GetComponent<AlarmingPlayerDecal> ();
+		sun = FindObjectOfType <DayNightLight> ();
 	}
 	
 	// Update is called once per frame
@@ -23,21 +27,22 @@ public class Player : MonoBehaviour
 	{
 		if (!GameEvent.gameOver) {
 			if (health > 0) {
-				hunger -= 1 * Time.deltaTime * hunger_scale;
-				thirst -= 1 * Time.deltaTime * thirst_scale;
-				heat -= 1 * Time.deltaTime * heat_scale;
-				if (hunger < 0) {
+				DecrementHunger (-1 * Time.deltaTime * hunger_scale);
+				DecrementThirst (-1 * Time.deltaTime * thirst_scale);
+				if (!sun.GetDayPhase ()) {
+					DecrementHeat (-1 * Time.deltaTime * heat_scale);
+				}
+				if (hunger <= 0) {
 					health -= hunger_scale * Time.deltaTime;
 				}
-				if (thirst < 0) {
+				if (thirst <= 0) {
 					health -= thirst_scale * Time.deltaTime;
 				}
-				if (heat < 0) {
+				if (heat <= 0) {
 					health -= heat_scale * Time.deltaTime;
 				}
-
+				alarmingDecal.ActivateDecalsByStatus ("dying", health);
 			} else {
-				Debug.Log ("END");
 				GameEvent.GameOver ();
 			}
 		}
@@ -45,36 +50,40 @@ public class Player : MonoBehaviour
 
 	public void DecrementHunger (float value)
 	{
-		IncrementValue (ref hunger, value, false);
+		IncrementValue (ref hunger, value);
 	}
 
 	public void DecrementThirst (float value)
 	{
-		IncrementValue (ref thirst, value, false);
+		IncrementValue (ref thirst, value);
 	}
 
 	public void DecrementHeat (float value)
 	{
-		IncrementValue (ref heat, value, false);
+		IncrementValue (ref heat, value);
 	}
 
-	private void IncrementValue (ref float base_value, float value, bool recursion)
+	public void IncrementHeat (float value)
+	{
+		IncrementValue (ref heat, value);
+	}
+
+	private void IncrementValue (ref float base_value, float value)
 	{
 		
 		if (base_value + value > 100) {
 			base_value += value - (base_value + value - 100);
 		} else {
-			base_value = 100;
-		}
-		if (!recursion) {
-			IncrementValue (ref health, value, true);
+			base_value += value;
 		}
 	}
 
 	public void TakeDamage (int damage)
 	{
 		if (health > 0) {
-			health -= damage;
+			IncrementValue (ref health, damage * -1);
+			alarmingDecal.ActivateDecalsByStatus ("gettingHurt", health);
+			alarmingDecal.FadeCurrentDecal ();
 		}
 	}
 }

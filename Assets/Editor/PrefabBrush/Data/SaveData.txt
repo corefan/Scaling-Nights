@@ -1,46 +1,10 @@
 Layer Selection: Terrain
 Brush Max Size: 100
-Brush Size: 50
+Brush Size: 100
 Fill Mode: True
 Fill Rate: 0.01
 
-Game Object: Assets/island_scene/Terrains/Terrain Demo Assets/Rocks/RockMesh.fbx
-Layer: Default
-Toggle: True
-Slider: 0.2222222
-Lock Orientation Toggle: False
-Random Rotation Toggle: True
-Random Rotation X: False
-Random Rotation Y: True
-Random Rotation Z: False
-Random Scale Toggle: True
-Random Scale Min: 0.25
-Random Scale Max: 1.2
-Fixed Rotation Toggle: False
-Fixed Rotation X: 0
-Fixed Rotation Y: 0
-Fixed Rotation Z: 0
-Depth: 0
-
-Game Object: Assets/island_scene/Terrains/Stykized Vegetation Pack Free/Prefabs/Weeds_02.prefab
-Layer: Default
-Toggle: True
-Slider: 0.3611111
-Lock Orientation Toggle: True
-Random Rotation Toggle: True
-Random Rotation X: False
-Random Rotation Y: True
-Random Rotation Z: False
-Random Scale Toggle: True
-Random Scale Min: 0.25
-Random Scale Max: 1
-Fixed Rotation Toggle: False
-Fixed Rotation X: 0
-Fixed Rotation Y: 0
-Fixed Rotation Z: 0
-Depth: 0
-
-Game Object: Assets/island_scene/Terrains/Rocks Pack/Enviro/Others/Tree2.prefab
+Game Object: Assets/LODs/Bush 01 prefab_20161004_102219/Bush 01 prefab_LODGroup.prefab
 Layer: Default
 Toggle: True
 Slider: 1
@@ -49,16 +13,16 @@ Random Rotation Toggle: True
 Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
-Random Scale Toggle: True
-Random Scale Min: 1
-Random Scale Max: 1.5
+Random Scale Toggle: False
+Random Scale Min: 0.1
+Random Scale Max: 1
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
 Fixed Rotation Z: 0
 Depth: 0
 
-Game Object: Assets/island_scene/Terrains/Rocks Pack/Enviro/Others/Tree3.prefab
+Game Object: Assets/LODs/Bush 05 prefab_20161004_102348/Bush 05 prefab_LODGroup.prefab
 Layer: Default
 Toggle: True
 Slider: 1
@@ -67,80 +31,8 @@ Random Rotation Toggle: True
 Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
-Random Scale Toggle: True
-Random Scale Min: 1
-Random Scale Max: 1.5
-Fixed Rotation Toggle: False
-Fixed Rotation X: 0
-Fixed Rotation Y: 0
-Fixed Rotation Z: 0
-Depth: 0
-
-Game Object: Assets/island_scene/Terrains/Rocks Pack/Enviro/Others/Tree1.prefab
-Layer: Default
-Toggle: True
-Slider: 1
-Lock Orientation Toggle: True
-Random Rotation Toggle: True
-Random Rotation X: False
-Random Rotation Y: True
-Random Rotation Z: False
-Random Scale Toggle: True
-Random Scale Min: 1
-Random Scale Max: 1.5
-Fixed Rotation Toggle: False
-Fixed Rotation X: 0
-Fixed Rotation Y: 0
-Fixed Rotation Z: 0
-Depth: 0
-
-Game Object: Assets/island_scene/Terrains/Rocks Pack/Rock10/Rock10_A.prefab
-Layer: Default
-Toggle: True
-Slider: 0.1481481
-Lock Orientation Toggle: False
-Random Rotation Toggle: True
-Random Rotation X: False
-Random Rotation Y: True
-Random Rotation Z: False
-Random Scale Toggle: True
-Random Scale Min: 0.25
-Random Scale Max: 1
-Fixed Rotation Toggle: False
-Fixed Rotation X: 0
-Fixed Rotation Y: 0
-Fixed Rotation Z: 0
-Depth: -0.25
-
-Game Object: Assets/island_scene/Terrains/Bushes/Bush 01/Bush 01 prefab.prefab
-Layer: Default
-Toggle: True
-Slider: 0.4722222
-Lock Orientation Toggle: True
-Random Rotation Toggle: True
-Random Rotation X: False
-Random Rotation Y: True
-Random Rotation Z: False
-Random Scale Toggle: True
-Random Scale Min: 0.25
-Random Scale Max: 1
-Fixed Rotation Toggle: False
-Fixed Rotation X: 0
-Fixed Rotation Y: 0
-Fixed Rotation Z: 0
-Depth: 0
-
-Game Object: Assets/island_scene/Terrains/Bushes/Bush 04/Bush 04 prefab.prefab
-Layer: Default
-Toggle: True
-Slider: 0.3333333
-Lock Orientation Toggle: True
-Random Rotation Toggle: True
-Random Rotation X: False
-Random Rotation Y: True
-Random Rotation Z: False
-Random Scale Toggle: True
-Random Scale Min: 0.25
+Random Scale Toggle: False
+Random Scale Min: 0.1
 Random Scale Max: 1
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0

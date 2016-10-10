@@ -45,7 +45,7 @@ Material:
       second: 0.125
     - first:
         name: _WindQuality
-      second: 5
+      second: 0
     m_Colors:
     - first:
         name: _Color

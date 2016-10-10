@@ -29,6 +29,8 @@ public class EnemiesAi : MonoBehaviour
 	// Timer for counting up to the next attack.
 	float timer;
 
+	private AudioSource audiosource;
+
 	void Awake ()
 	{
 		// Setting up the references.
@@ -37,7 +39,7 @@ public class EnemiesAi : MonoBehaviour
 		nav = GetComponent<NavMeshAgent> ();
 		wayPointStored = GameObject.Find ("PatrolController").transform.GetComponent<WayPointsStore> ();
 		player = GameObject.Find ("Player").transform.GetComponent<Player> ();
-
+		audiosource = GetComponent <AudioSource> ();
 		wayPoints ();
 	}
 
@@ -57,8 +59,10 @@ public class EnemiesAi : MonoBehaviour
 			Shooting ();
 		} else if (!enemySight.playerInSight && enemySight.playerInArea && player.health > 0) {
 			Chasing ();
+			audiosource.Stop ();
 		} else {
 			Patrolling ();
+			audiosource.Play ();
 		}
 	}
 
@@ -81,6 +85,7 @@ public class EnemiesAi : MonoBehaviour
 		// If the timer exceeds the time between attacks, the player is in range and this enemy is alive...
 		if (timer >= timeBetweenAttacks && enemySight.playerInSight) {
 			Damage ();
+			audiosource.Play ();
 		}
 	}
 
@@ -104,7 +109,7 @@ public class EnemiesAi : MonoBehaviour
 
 		anim.SetInteger ("State", 1);
 
-		nav.destination = enemySight.getPlayerPosition ().position;
+		nav.destination = enemySight.getPlayerPosition ().position + Vector3.forward * 3;
 
 		nav.speed = chaseSpeed;
 

@@ -86,4 +86,8 @@ public class DayNightLight : MonoBehaviour
 
 	}
 
+	public bool GetDayPhase ()
+	{
+		return dayPhase;
+	}
 }
